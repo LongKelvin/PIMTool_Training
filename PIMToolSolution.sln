@@ -3,7 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PIMTool.Winforms", "PIMTool.Winforms\PIMTool.Winforms.csproj", "{0B9CD456-8568-4D5F-936C-B72A266905B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PIMTool.Core", "PIMTool.Core\PIMTool.Core.csproj", "{C90293AF-9444-499C-AF41-1A5D38D6DCCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PIMTool.DataAccess", "PIMTool.DataAccess\PIMTool.DataAccess.csproj", "{A9F30708-F314-4042-9285-7D521AFFCC23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PIMTool.Models", "PIMTool.Models\PIMTool.Models.csproj", "{9284913E-DB8B-47C0-946C-F27477B7B15B}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B9CD456-8568-4D5F-936C-B72A266905B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B9CD456-8568-4D5F-936C-B72A266905B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B9CD456-8568-4D5F-936C-B72A266905B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B9CD456-8568-4D5F-936C-B72A266905B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C90293AF-9444-499C-AF41-1A5D38D6DCCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C90293AF-9444-499C-AF41-1A5D38D6DCCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C90293AF-9444-499C-AF41-1A5D38D6DCCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C90293AF-9444-499C-AF41-1A5D38D6DCCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F30708-F314-4042-9285-7D521AFFCC23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F30708-F314-4042-9285-7D521AFFCC23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F30708-F314-4042-9285-7D521AFFCC23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F30708-F314-4042-9285-7D521AFFCC23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9284913E-DB8B-47C0-946C-F27477B7B15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9284913E-DB8B-47C0-946C-F27477B7B15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9284913E-DB8B-47C0-946C-F27477B7B15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9284913E-DB8B-47C0-946C-F27477B7B15B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

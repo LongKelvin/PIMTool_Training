@@ -38,6 +38,10 @@ namespace PIMTool.DataAccess
                 .HasOne(g => g.GroupLeader)
                 .WithMany()
                 .HasForeignKey(g => g.GroupLeaderId);
+
+            //var sampleData = new SampleData.SampleData();
+            //sampleData.CreateSampleData(modelBuilder);
+
         }
     }
 }

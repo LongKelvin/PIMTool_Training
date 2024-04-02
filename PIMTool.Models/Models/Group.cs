@@ -2,7 +2,7 @@
 
 namespace PIMTool.Models
 {
-    [Table("Group")]
+    [Table("ProjectGroups")]
     public class Group : BaseEntity
     {
         public int GroupLeaderId { get; set; }
@@ -11,5 +11,11 @@ namespace PIMTool.Models
         public virtual Employee GroupLeader { get; set; }
 
         public virtual ICollection<Project> Projects { get; set; }
+
+        public Group()
+        {
+            Projects = [];
+            GroupLeader = new Employee();
+        }
     }
 }

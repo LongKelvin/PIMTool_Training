@@ -55,7 +55,7 @@ namespace PIMTool.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("PIMTool.Models.Group", b =>
@@ -78,7 +78,7 @@ namespace PIMTool.DataAccess.Migrations
 
                     b.HasIndex("GroupLeaderId");
 
-                    b.ToTable("Group");
+                    b.ToTable("ProjectGroups");
                 });
 
             modelBuilder.Entity("PIMTool.Models.Project", b =>
@@ -125,7 +125,7 @@ namespace PIMTool.DataAccess.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("PIMTool.Models.ProjectEmployee", b =>
@@ -134,9 +134,6 @@ namespace PIMTool.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Timestamp")
@@ -148,7 +145,7 @@ namespace PIMTool.DataAccess.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("ProjectEmployee");
+                    b.ToTable("ProjectEmployees");
                 });
 
             modelBuilder.Entity("PIMTool.Models.Group", b =>
@@ -178,13 +175,13 @@ namespace PIMTool.DataAccess.Migrations
                     b.HasOne("PIMTool.Models.Employee", "Employee")
                         .WithMany("ProjectEmployees")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PIMTool.Models.Project", "Project")
                         .WithMany("ProjectEmployees")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Employee");

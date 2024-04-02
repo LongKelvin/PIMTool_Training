@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIMTool.Models
 {
-    [Table("Employee")]
+    [Table("Employees")]
     public class Employee : BaseEntity
     {
         [Required]
@@ -22,5 +22,14 @@ namespace PIMTool.Models
         public DateTime BirthDate { get; set; }
 
         public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+
+        public Employee()
+        {
+            Visa = string.Empty;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            BirthDate = DateTime.MinValue;
+            ProjectEmployees = [];
+        }
     }
 }

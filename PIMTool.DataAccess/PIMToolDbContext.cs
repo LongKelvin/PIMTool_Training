@@ -11,13 +11,8 @@ namespace PIMTool.DataAccess
         public DbSet<Models.Group> Groups { get; set; }
         public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
 
-        //public PIMToolDbContext(DbContextOptions options) : base(options)
-        //{
-        //}
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public PIMToolDbContext(DbContextOptions<PIMToolDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Server=KELVIN-LONG;Database=PIMToolDB;TrustServerCertificate=True;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,14 +25,16 @@ namespace PIMTool.DataAccess
             modelBuilder.Entity<ProjectEmployee>()
                 .HasOne(pe => pe.Project)
                 .WithMany(p => p.ProjectEmployees)
-                .HasForeignKey(pe => pe.ProjectId);
+                .HasForeignKey(pe => pe.ProjectId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ProjectEmployee>()
                 .HasOne(pe => pe.Employee)
                 .WithMany(e => e.ProjectEmployees)
-                .HasForeignKey(pe => pe.EmployeeId);
+                .HasForeignKey(pe => pe.EmployeeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Group>()
+            modelBuilder.Entity<Models.Group>()
                 .HasOne(g => g.GroupLeader)
                 .WithMany()
                 .HasForeignKey(g => g.GroupLeaderId);

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using PIMTool.Models.Enums;
+
 namespace PIMTool.Models
 {
-    [Table("Project")]
+    [Table("Projects")]
     public class Project : BaseEntity
     {
         public int GroupId { get; set; }
@@ -32,5 +34,16 @@ namespace PIMTool.Models
         public virtual Group Group { get; set; }
 
         public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+
+        public Project()
+        {
+            Name = string.Empty;
+            Customer = string.Empty;
+            Status = ProjectStatus.NEW.ToString();
+            StartDate = DateTime.MinValue;
+            EndDate = DateTime.MinValue;
+            Group = new Group();
+            ProjectEmployees = [];
+        }
     }
 }

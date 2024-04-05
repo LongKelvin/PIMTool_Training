@@ -45,5 +45,10 @@ namespace PIMTool.Entities
             Group = new Group();
             ProjectEmployees = [];
         }
+
+        public override string ToString()
+        {
+            return $"Project ID: {Id}, Name: {Name}, Customer: {Customer}, Status: {Status}, Start Date: {StartDate}, End Date: {EndDate}";
+        }
     }
 }

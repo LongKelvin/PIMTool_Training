@@ -1,8 +1,10 @@
 ﻿using System.Linq.Expressions;
 
+using PIMTool.Entities;
+
 namespace PIMTool.Core.Repositories.Interfaces
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : BaseEntity
     {
         IQueryable<T> GetAllAsync();
 
@@ -15,6 +17,9 @@ namespace PIMTool.Core.Repositories.Interfaces
         void DeleteAsync(T entity);
 
         void DeleteMultipleAsync(Expression<Func<T, bool>> where);
+
+        void Delete(int id);
+        void Delete(int[] ids);
 
         IQueryable<T> GetByConditionAsync(Expression<Func<T, bool>> condition);
     }

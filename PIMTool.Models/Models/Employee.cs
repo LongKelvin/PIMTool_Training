@@ -31,5 +31,10 @@ namespace PIMTool.Entities
             BirthDate = DateTime.MinValue;
             ProjectEmployees = [];
         }
+
+        public override string ToString()
+        {
+            return $"Employee ID: {Id}, Visa: {Visa}, Name: {FirstName} {LastName}, Birth Date: {BirthDate}";
+        }
     }
 }

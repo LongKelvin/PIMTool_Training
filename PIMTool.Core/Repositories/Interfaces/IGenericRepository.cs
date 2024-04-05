@@ -4,7 +4,7 @@ namespace PIMTool.Core.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IQueryable<T>> GetAllAsync();
+        IQueryable<T> GetAllAsync();
 
         T? GetByIdAsync(int id);
 

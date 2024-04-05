@@ -1,152 +1,150 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using PIMTool.Entities;
+﻿using PIMTool.Entities;
+using PIMTool.Entities.Enums;
 
 namespace PIMTool.DataAccess.SampleData
 {
-    internal static class SampleData
+    public static class SampleData
     {
-        public static void CreateSampleData(ModelBuilder modelBuilder)
+        public static void InitializeData(PIMToolDbContext context)
         {
-            CreateSampleEmployeeData(modelBuilder);
-            CreateSampleGroupData(modelBuilder);
-            CreateSampleProjectData(modelBuilder);
-            CreateSampleProjectEmployeeData(modelBuilder);
+            CreateSampleData(context);
         }
 
-        private static void CreateSampleEmployeeData(ModelBuilder modelBuilder)
+        private static void CreateSampleData(PIMToolDbContext context)
         {
-            modelBuilder.Entity<Employee>().HasData(
-            new Employee
-            {
-                Id = 1,
-                Visa = "JDV1",
-                FirstName = "John",
-                LastName = "Doe",
-                BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc)
-            },
-            new Employee
-            {
-                Id = 2,
-                Visa = "JSV2",
-                FirstName = "Jane",
-                LastName = "Smith",
-                BirthDate = new DateTime(1995, 5, 10, 0, 0, 0, kind: DateTimeKind.Utc)
-            });
+            CreateSampleEmployeeData(context);
+            CreateSampleGroupData(context);
+            CreateSampleProjectData(context);
+            CreateSampleProjectEmployeeData(context);
         }
 
-        private static void CreateSampleProjectData(ModelBuilder modelBuilder)
+        private static void CreateSampleEmployeeData(PIMToolDbContext context)
         {
-            modelBuilder.Entity<Project>().HasData(
-            new Project
+            if (!context.Employees.Any())
             {
-                Id = 1,
-                GroupId = 1, // Assuming you have a Group with Id = 1
-                ProjectNumber = 1001,
-                Name = "Project A",
-                Customer = "ABC Company",
-                Status = "NEW",
-                StartDate = new DateTime(2022, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc),
-                EndDate = null // Assuming project has not ended yet
-            },
-            new Project
-            {
-                Id = 2,
-                GroupId = 2, // Assuming you have a Group with Id = 2
-                ProjectNumber = 1002,
-                Name = "Project B",
-                Customer = "XYZ Corporation",
-                Status = "INP",
-                StartDate = new DateTime(2022, 2, 1, 0, 0, 0, kind: DateTimeKind.Utc),
-                EndDate = new DateTime(2022, 6, 30, 0, 0, 0, kind: DateTimeKind.Utc)
-            });
-        }
-
-        private static void CreateSampleGroupData(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Group>().HasData(
-            new Group
-            {
-                Id = 1,
-                GroupLeaderId = 1, // Assuming you have an Employee with Id = 1
-                GroupLeader = new Employee
+                var listEmployees = new List<Employee>
                 {
-                    Id = 1,
-                    Visa = "JDV1",
-                    FirstName = "John",
-                    LastName = "Doe",
-                    BirthDate = new DateTime(1980, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc)
+                    new() {
+                        Visa = "JDV",
+                        FirstName = "John",
+                        LastName = "Doe",
+                        BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc)
+                    },
+                    new() {
+                        Visa = "JSV",
+                        FirstName = "Jane",
+                        LastName = "Smith",
+                        BirthDate = new DateTime(1995, 5, 10, 0, 0, 0, kind: DateTimeKind.Utc)
+                    }
+                };
+
+                context.Employees.AddRange(listEmployees);
+                context.SaveChanges();
+            }
+        }
+
+        private static void CreateSampleGroupData(PIMToolDbContext context)
+        {
+            if (!context.Groups.Any())
+            {
+                if (!context.Employees.Any())
+                {
+                    CreateSampleEmployeeData(context);
                 }
-            },
-            new Group
-            {
-                Id = 2,
-                GroupLeaderId = 2, // Assuming you have an Employee with Id = 2
-                GroupLeader = new Employee
+
+                var listEmployees = context.Employees.ToList();
+
+                var listGroups = new List<Group>
                 {
-                    Id = 2,
-                    Visa = "JSV2",
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    BirthDate = new DateTime(1985, 5, 10, 0, 0, 0, kind: DateTimeKind.Utc)
-                }
-            });
+                    new() {
+                        GroupLeaderId = listEmployees[0].Id,
+                        GroupLeader=listEmployees[0]
+                    },
+                     new() {
+                        GroupLeaderId = listEmployees[1].Id,
+                        GroupLeader=listEmployees[1]
+                    },
+                };
+
+                context.Groups.AddRange(listGroups);
+                context.SaveChanges();
+            }
         }
 
-        private static void CreateSampleProjectEmployeeData(ModelBuilder modelBuilder)
+        private static void CreateSampleProjectData(PIMToolDbContext context)
         {
-            // Sample data for ProjectEmployees
-            modelBuilder.Entity<ProjectEmployee>().HasData(
-                new ProjectEmployee
+            if (!context.Projects.Any())
+            {
+                if (!context.Employees.Any())
                 {
-                    ProjectId = 1, // Assuming you have a Project with Id = 1
-                    EmployeeId = 1, // Assuming you have an Employee with Id = 1
-                    Project = new Project
-                    {
-                        Id = 1,
-                        GroupId = 1, // Assuming you have a Group with Id = 1
+                    CreateSampleEmployeeData(context);
+                }
+
+                if (context.Groups.Any())
+                {
+                    CreateSampleGroupData(context);
+                }
+
+                var listGroups = context.Groups.ToList();
+
+                var listProjects = new List<Project>
+                {
+                     new() {
+                        GroupId = listGroups[0].Id,
                         ProjectNumber = 1001,
                         Name = "Project A",
                         Customer = "ABC Company",
-                        Status = "NEW",
-                        StartDate = new DateTime(2022, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc),
+                        Status = ProjectStatus.NEW.ToString(),
+                        StartDate = new DateTime(2024, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc),
                         EndDate = null // Assuming project has not ended yet
                     },
-                    Employee = new Employee
-                    {
-                        Id = 1,
-                        Visa = "JDV1",
-                        FirstName = "John",
-                        LastName = "Doe",
-                        BirthDate = new DateTime(1980, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc)
-                    }
-                },
-                new ProjectEmployee
-                {
-                    ProjectId = 2, // Assuming you have a Project with Id = 2
-                    EmployeeId = 2, // Assuming you have an Employee with Id = 2
-                    Project = new Project
-                    {
-                        Id = 2,
-                        GroupId = 2, // Assuming you have a Group with Id = 2
+                    new() {
+                        GroupId = listGroups[1].Id,
                         ProjectNumber = 1002,
                         Name = "Project B",
                         Customer = "XYZ Corporation",
-                        Status = "INP",
-                        StartDate = new DateTime(2022, 2, 1, 0, 0, 0, kind: DateTimeKind.Utc),
-                        EndDate = new DateTime(2022, 6, 30, 0, 0, 0, kind: DateTimeKind.Utc) // Assuming project ended on June 30, 2022
-                    },
-                    Employee = new Employee
-                    {
-                        Id = 2,
-                        Visa = "JSV2",
-                        FirstName = "Jane",
-                        LastName = "Smith",
-                        BirthDate = new DateTime(1985, 5, 10, 0, 0, 0, kind: DateTimeKind.Utc)
+                        Status = ProjectStatus.INP.ToString(),
+                        StartDate = new DateTime(2024, 2, 1, 0, 0, 0, kind: DateTimeKind.Utc),
+                        EndDate = new DateTime(2024, 10, 30, 0, 0, 0, kind: DateTimeKind.Utc)
                     }
+                };
+
+                context.Projects.AddRange(listProjects);
+                context.SaveChanges();
+            }
+        }
+
+        private static void CreateSampleProjectEmployeeData(PIMToolDbContext context)
+        {
+            if (!context.ProjectEmployees.Any())
+            {
+                if (context.Projects.Any())
+                {
+                    CreateSampleGroupData(context);
                 }
 
-            );
+                var listEmployees = context.Employees.ToList();
+                var listProjects = context.Projects.ToList();
+
+                var listProjectEmployees = new List<ProjectEmployee>
+                {
+                    new() {
+                        Employee = listEmployees[0],
+                        Project = listProjects[0],
+                        ProjectId = listProjects[0].Id,
+                        EmployeeId = listEmployees[0].Id
+                    },
+                     new() {
+                        Employee = listEmployees[1],
+                        Project = listProjects[1],
+                        ProjectId = listProjects[1].Id,
+                        EmployeeId = listEmployees[1].Id
+                    },
+                };
+
+                context.ProjectEmployees.AddRange(listProjectEmployees);
+                context.SaveChanges();
+            }
         }
     }
 }

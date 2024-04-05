@@ -4,16 +4,12 @@ using PIMTool.Entities;
 
 namespace PIMTool.DataAccess
 {
-    public class PIMToolDbContext : DbContext
+    public class PIMToolDbContext(DbContextOptions<PIMToolDbContext> options) : DbContext(options)
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Entities.Group> Groups { get; set; }
         public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
-
-        public PIMToolDbContext(DbContextOptions<PIMToolDbContext> options) : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,8 +34,6 @@ namespace PIMTool.DataAccess
                 .HasOne(g => g.GroupLeader)
                 .WithMany()
                 .HasForeignKey(g => g.GroupLeaderId);
-
-            SampleData.SampleData.CreateSampleData(modelBuilder);
         }
     }
 }

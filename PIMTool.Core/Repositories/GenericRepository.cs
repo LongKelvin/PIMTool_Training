@@ -27,9 +27,9 @@ namespace PIMTool.Core.Repositories
             _context.Set<T>().RemoveRange(deleteEnties);
         }
 
-        public Task<IQueryable<T>> GetAllAsync()
+        public IQueryable<T> GetAllAsync()
         {
-            return Task.FromResult(_context.Set<T>().AsQueryable().AsNoTracking());
+            return _context.Set<T>().AsQueryable().AsNoTracking();
         }
 
         public IQueryable<T> GetByConditionAsync(Expression<Func<T, bool>> condition)

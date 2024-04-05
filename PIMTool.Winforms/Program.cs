@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 using PIMTool.Core.Wrapper;
 using PIMTool.Core.Wrapper.Interfaces;
@@ -21,10 +22,21 @@ namespace PIMTool.Winforms
 
             ServiceProvider = host.Services;
 
+            // Seed data after initializing the PIMToolDbContext
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                //var dbContext = scope.ServiceProvider.GetRequiredService<PIMToolDbContext>();
+                //dbContext.Database.Migrate(); // Ensure database is created and migrated
+
+                // Seed data after database initialization
+                //DataAccess.SampleData.SampleData.InitializeData(dbContext);
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(ServiceProvider.GetRequiredService<MainWindow>());
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            Application.Run(mainWindow);
         }
 
         private static IHostBuilder CreateHostBuilder()
@@ -40,9 +52,16 @@ namespace PIMTool.Winforms
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddTransient<MainWindow>();
-                    services.AddDbContext<DbContext, PIMToolDbContext>(options => options.UseSqlServer(connectionString));
+                    services.AddDbContext<DbContext, PIMToolDbContext>(
+                        options => options
+                        .UseSqlServer(connectionString)
+                        .LogTo(Console.WriteLine, LogLevel.Information)
+                        .EnableSensitiveDataLogging());
+
+                    //services.AddScoped(typeof(IGenericRepository<>), typeof(RepositoryBase<>));
                     ConfigureRepositoryWrapper(services);
+
+                    services.AddTransient<MainWindow>();
                 });
         }
 

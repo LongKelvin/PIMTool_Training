@@ -13,6 +13,11 @@ namespace PIMTool.Core.Wrapper
         private IEmployeeRepository _employee;
         private IProjectEmployeeRepository _projectEmployee;
 
+        public RepositoryWrapper(PIMToolDbContext context)
+        {
+            _dbContext = context;
+        }
+
         public IProjectRepository Projects
         {
             get
@@ -21,8 +26,6 @@ namespace PIMTool.Core.Wrapper
                 return _project;
             }
         }
-
-
 
         public IEmployeeRepository Employees
         {

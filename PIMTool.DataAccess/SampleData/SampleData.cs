@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using PIMTool.Models;
+using PIMTool.Entities;
 
 namespace PIMTool.DataAccess.SampleData
 {
-    internal class SampleData
+    internal static class SampleData
     {
-        public void CreateSampleData(ModelBuilder modelBuilder)
+        public static void CreateSampleData(ModelBuilder modelBuilder)
         {
             CreateSampleEmployeeData(modelBuilder);
             CreateSampleGroupData(modelBuilder);
@@ -14,7 +14,7 @@ namespace PIMTool.DataAccess.SampleData
             CreateSampleProjectEmployeeData(modelBuilder);
         }
 
-        private void CreateSampleEmployeeData(ModelBuilder modelBuilder)
+        private static void CreateSampleEmployeeData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>().HasData(
             new Employee
@@ -35,7 +35,7 @@ namespace PIMTool.DataAccess.SampleData
             });
         }
 
-        private void CreateSampleProjectData(ModelBuilder modelBuilder)
+        private static void CreateSampleProjectData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>().HasData(
             new Project
@@ -62,7 +62,7 @@ namespace PIMTool.DataAccess.SampleData
             });
         }
 
-        private void CreateSampleGroupData(ModelBuilder modelBuilder)
+        private static void CreateSampleGroupData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Group>().HasData(
             new Group
@@ -93,7 +93,7 @@ namespace PIMTool.DataAccess.SampleData
             });
         }
 
-        private void CreateSampleProjectEmployeeData(ModelBuilder modelBuilder)
+        private static void CreateSampleProjectEmployeeData(ModelBuilder modelBuilder)
         {
             // Sample data for ProjectEmployees
             modelBuilder.Entity<ProjectEmployee>().HasData(

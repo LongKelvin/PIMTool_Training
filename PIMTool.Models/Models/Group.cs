@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PIMTool.Models
+namespace PIMTool.Entities
 {
     [Table("ProjectGroups")]
     public class Group : BaseEntity

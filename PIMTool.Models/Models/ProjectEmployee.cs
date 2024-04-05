@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PIMTool.Models
+namespace PIMTool.Entities
 {
     [Table("ProjectEmployees")]
     public class ProjectEmployee

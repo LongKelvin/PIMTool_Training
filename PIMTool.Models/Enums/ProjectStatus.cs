@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PIMTool.Models.Enums
+namespace PIMTool.Entities.Enums
 {
     public enum ProjectStatus
     {

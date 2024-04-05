@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using PIMTool.Models.Enums;
+using PIMTool.Entities.Enums;
 
-namespace PIMTool.Models
+namespace PIMTool.Entities
 {
     [Table("Projects")]
     public class Project : BaseEntity

@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PIMTool.Core", "PIMTool.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PIMTool.DataAccess", "PIMTool.DataAccess\PIMTool.DataAccess.csproj", "{A9F30708-F314-4042-9285-7D521AFFCC23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PIMTool.Models", "PIMTool.Models\PIMTool.Models.csproj", "{9284913E-DB8B-47C0-946C-F27477B7B15B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PIMTool.Entities", "PIMTool.Models\PIMTool.Entities.csproj", "{9284913E-DB8B-47C0-946C-F27477B7B15B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PIMTool.Shared", "PIMTool.Shared\PIMTool.Shared.csproj", "{8B380DA5-5F00-4A9B-8F75-5A0E93829C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PIMTool.Shared", "PIMTool.Shared\PIMTool.Shared.csproj", "{8B380DA5-5F00-4A9B-8F75-5A0E93829C21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using PIMTool.Models;
+using PIMTool.Entities;
 
 namespace PIMTool.DataAccess
 {
@@ -8,7 +8,7 @@ namespace PIMTool.DataAccess
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Models.Group> Groups { get; set; }
+        public DbSet<Entities.Group> Groups { get; set; }
         public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
 
         public PIMToolDbContext(DbContextOptions<PIMToolDbContext> options) : base(options)
@@ -34,14 +34,12 @@ namespace PIMTool.DataAccess
                 .HasForeignKey(pe => pe.EmployeeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Models.Group>()
+            modelBuilder.Entity<Entities.Group>()
                 .HasOne(g => g.GroupLeader)
                 .WithMany()
                 .HasForeignKey(g => g.GroupLeaderId);
 
-            //var sampleData = new SampleData.SampleData();
-            //sampleData.CreateSampleData(modelBuilder);
-
+            SampleData.SampleData.CreateSampleData(modelBuilder);
         }
     }
 }

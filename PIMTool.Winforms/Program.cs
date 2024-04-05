@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using PIMTool.Core.Wrapper;
+using PIMTool.Core.Wrapper.Interfaces;
 using PIMTool.DataAccess;
 
 namespace PIMTool.Winforms
@@ -16,6 +18,7 @@ namespace PIMTool.Winforms
         {
             ApplicationConfiguration.Initialize();
             var host = CreateHostBuilder().Build();
+
             ServiceProvider = host.Services;
 
             Application.EnableVisualStyles();
@@ -39,7 +42,13 @@ namespace PIMTool.Winforms
                 {
                     services.AddTransient<MainWindow>();
                     services.AddDbContext<DbContext, PIMToolDbContext>(options => options.UseSqlServer(connectionString));
+                    ConfigureRepositoryWrapper(services);
                 });
+        }
+
+        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
     }
 }

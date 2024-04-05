@@ -29,7 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PIMTool.Core\PIMTool.Core.csproj" />
     <ProjectReference Include="..\PIMTool.DataAccess\PIMTool.DataAccess.csproj" />
-    <ProjectReference Include="..\PIMTool.Models\PIMTool.Models.csproj" />
+    <ProjectReference Include="..\PIMTool.Models\PIMTool.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

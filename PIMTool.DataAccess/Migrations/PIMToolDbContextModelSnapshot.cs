@@ -22,7 +22,7 @@ namespace PIMTool.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PIMTool.Models.Employee", b =>
+            modelBuilder.Entity("PIMTool.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace PIMTool.DataAccess.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Group", b =>
+            modelBuilder.Entity("PIMTool.Entities.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace PIMTool.DataAccess.Migrations
                     b.ToTable("ProjectGroups");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Project", b =>
+            modelBuilder.Entity("PIMTool.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace PIMTool.DataAccess.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.ProjectEmployee", b =>
+            modelBuilder.Entity("PIMTool.Entities.ProjectEmployee", b =>
                 {
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -148,9 +148,9 @@ namespace PIMTool.DataAccess.Migrations
                     b.ToTable("ProjectEmployees");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Group", b =>
+            modelBuilder.Entity("PIMTool.Entities.Group", b =>
                 {
-                    b.HasOne("PIMTool.Models.Employee", "GroupLeader")
+                    b.HasOne("PIMTool.Entities.Employee", "GroupLeader")
                         .WithMany()
                         .HasForeignKey("GroupLeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -159,9 +159,9 @@ namespace PIMTool.DataAccess.Migrations
                     b.Navigation("GroupLeader");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Project", b =>
+            modelBuilder.Entity("PIMTool.Entities.Project", b =>
                 {
-                    b.HasOne("PIMTool.Models.Group", "Group")
+                    b.HasOne("PIMTool.Entities.Group", "Group")
                         .WithMany("Projects")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -170,15 +170,15 @@ namespace PIMTool.DataAccess.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.ProjectEmployee", b =>
+            modelBuilder.Entity("PIMTool.Entities.ProjectEmployee", b =>
                 {
-                    b.HasOne("PIMTool.Models.Employee", "Employee")
+                    b.HasOne("PIMTool.Entities.Employee", "Employee")
                         .WithMany("ProjectEmployees")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("PIMTool.Models.Project", "Project")
+                    b.HasOne("PIMTool.Entities.Project", "Project")
                         .WithMany("ProjectEmployees")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -189,17 +189,17 @@ namespace PIMTool.DataAccess.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Employee", b =>
+            modelBuilder.Entity("PIMTool.Entities.Employee", b =>
                 {
                     b.Navigation("ProjectEmployees");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Group", b =>
+            modelBuilder.Entity("PIMTool.Entities.Group", b =>
                 {
                     b.Navigation("Projects");
                 });
 
-            modelBuilder.Entity("PIMTool.Models.Project", b =>
+            modelBuilder.Entity("PIMTool.Entities.Project", b =>
                 {
                     b.Navigation("ProjectEmployees");
                 });

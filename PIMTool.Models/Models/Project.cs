@@ -33,7 +33,7 @@ namespace PIMTool.Entities
         [ForeignKey("GroupId")]
         public virtual Group Group { get; set; }
 
-        public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
         public Project()
         {
@@ -43,7 +43,7 @@ namespace PIMTool.Entities
             StartDate = DateTime.MinValue;
             EndDate = DateTime.MinValue;
             Group = new Group();
-            ProjectEmployees = [];
+            Employees = [];
         }
 
         public override string ToString()

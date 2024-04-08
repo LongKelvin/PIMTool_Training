@@ -21,7 +21,7 @@ namespace PIMTool.Entities
         [Required]
         public DateTime BirthDate { get; set; }
 
-        public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
 
         public Employee()
         {
@@ -29,7 +29,7 @@ namespace PIMTool.Entities
             FirstName = string.Empty;
             LastName = string.Empty;
             BirthDate = DateTime.MinValue;
-            ProjectEmployees = [];
+            Projects = [];
         }
 
         public override string ToString()

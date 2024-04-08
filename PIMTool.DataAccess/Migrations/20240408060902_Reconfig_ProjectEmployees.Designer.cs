@@ -12,8 +12,8 @@ using PIMTool.DataAccess;
 namespace PIMTool.DataAccess.Migrations
 {
     [DbContext(typeof(PIMToolDbContext))]
-    [Migration("20240402093106_InitDB")]
-    partial class InitDB
+    [Migration("20240408060902_Reconfig_ProjectEmployees")]
+    partial class Reconfig_ProjectEmployees
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,22 +131,17 @@ namespace PIMTool.DataAccess.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("PIMTool.Entities.ProjectEmployee", b =>
+            modelBuilder.Entity("ProjectEmployees", b =>
                 {
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
 
-                    b.HasKey("ProjectId", "EmployeeId");
+                    b.HasKey("EmployeeId", "ProjectId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectEmployees");
                 });
@@ -173,38 +168,24 @@ namespace PIMTool.DataAccess.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("PIMTool.Entities.ProjectEmployee", b =>
+            modelBuilder.Entity("ProjectEmployees", b =>
                 {
-                    b.HasOne("PIMTool.Entities.Employee", "Employee")
-                        .WithMany("ProjectEmployees")
+                    b.HasOne("PIMTool.Entities.Employee", null)
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PIMTool.Entities.Project", "Project")
-                        .WithMany("ProjectEmployees")
+                    b.HasOne("PIMTool.Entities.Project", null)
+                        .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("PIMTool.Entities.Employee", b =>
-                {
-                    b.Navigation("ProjectEmployees");
                 });
 
             modelBuilder.Entity("PIMTool.Entities.Group", b =>
                 {
                     b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("PIMTool.Entities.Project", b =>
-                {
-                    b.Navigation("ProjectEmployees");
                 });
 #pragma warning restore 612, 618
         }

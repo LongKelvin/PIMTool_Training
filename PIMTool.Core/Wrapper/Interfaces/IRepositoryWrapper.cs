@@ -7,8 +7,7 @@ namespace PIMTool.Core.Wrapper.Interfaces
         IProjectRepository Projects { get; }
         IEmployeeRepository Employees { get; }
         IGroupRepository Groups { get; }
-        IProjectEmployeeRepository ProjectEmployees { get; }
 
-        void Save();
+        void SaveChanges();
     }
 }

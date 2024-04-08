@@ -11,11 +11,13 @@ namespace PIMTool.Core.Wrapper
         private IProjectRepository _project;
         private IGroupRepository _group;
         private IEmployeeRepository _employee;
-        private IProjectEmployeeRepository _projectEmployee;
 
         public RepositoryWrapper(PIMToolDbContext context)
         {
             _dbContext = context;
+            _project = new ProjectRepository(_dbContext);
+            _group = new GroupRepository(_dbContext);
+            _employee = new EmployeeRepository(_dbContext);
         }
 
         public IProjectRepository Projects
@@ -45,16 +47,7 @@ namespace PIMTool.Core.Wrapper
             }
         }
 
-        public IProjectEmployeeRepository ProjectEmployees
-        {
-            get
-            {
-                _projectEmployee ??= new ProjectEmployeeRepository(_dbContext);
-                return _projectEmployee;
-            }
-        }
-
-        public void Save()
+        public void SaveChanges()
         {
             _dbContext.SaveChanges();
         }

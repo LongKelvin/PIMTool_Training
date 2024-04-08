@@ -15,7 +15,6 @@ namespace PIMTool.DataAccess.SampleData
             CreateSampleEmployeeData(context);
             CreateSampleGroupData(context);
             CreateSampleProjectData(context);
-            CreateSampleProjectEmployeeData(context);
         }
 
         private static void CreateSampleEmployeeData(PIMToolDbContext context)
@@ -80,7 +79,7 @@ namespace PIMTool.DataAccess.SampleData
                     CreateSampleEmployeeData(context);
                 }
 
-                if (context.Groups.Any())
+                if (!context.Groups.Any())
                 {
                     CreateSampleGroupData(context);
                 }
@@ -110,39 +109,6 @@ namespace PIMTool.DataAccess.SampleData
                 };
 
                 context.Projects.AddRange(listProjects);
-                context.SaveChanges();
-            }
-        }
-
-        private static void CreateSampleProjectEmployeeData(PIMToolDbContext context)
-        {
-            if (!context.ProjectEmployees.Any())
-            {
-                if (context.Projects.Any())
-                {
-                    CreateSampleGroupData(context);
-                }
-
-                var listEmployees = context.Employees.ToList();
-                var listProjects = context.Projects.ToList();
-
-                var listProjectEmployees = new List<ProjectEmployee>
-                {
-                    new() {
-                        Employee = listEmployees[0],
-                        Project = listProjects[0],
-                        ProjectId = listProjects[0].Id,
-                        EmployeeId = listEmployees[0].Id
-                    },
-                     new() {
-                        Employee = listEmployees[1],
-                        Project = listProjects[1],
-                        ProjectId = listProjects[1].Id,
-                        EmployeeId = listEmployees[1].Id
-                    },
-                };
-
-                context.ProjectEmployees.AddRange(listProjectEmployees);
                 context.SaveChanges();
             }
         }

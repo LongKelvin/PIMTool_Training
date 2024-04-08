@@ -27,7 +27,7 @@ namespace PIMTool.Winforms
                 _logger.LogInformation(employee.ToString());
             }
 
-            _logger.LogInformation($"Delete employee with id {4,5}");
+
         }
     }
 }

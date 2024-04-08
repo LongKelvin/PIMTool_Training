@@ -33,7 +33,7 @@ namespace PIMTool.Winforms
                 //var dbContext = scope.ServiceProvider.GetRequiredService<PIMToolDbContext>();
                 //dbContext.Database.Migrate(); // Ensure database is created and migrated
 
-                // Seed data after database initialization
+                ////Seed data after database initialization
                 //DataAccess.SampleData.SampleData.InitializeData(dbContext);
             }
 

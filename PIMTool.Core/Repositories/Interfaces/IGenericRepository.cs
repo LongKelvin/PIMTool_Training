@@ -19,6 +19,7 @@ namespace PIMTool.Core.Repositories.Interfaces
         void DeleteMultipleAsync(Expression<Func<T, bool>> where);
 
         void Delete(int id);
+
         void Delete(int[] ids);
 
         IQueryable<T> GetByConditionAsync(Expression<Func<T, bool>> condition);

@@ -6,10 +6,13 @@ namespace PIMTool.Entities.Enums
     {
         [Description("New")]
         NEW,
+
         [Description("Planned")]
         PLA,
+
         [Description("In Progress")]
         INP,
+
         [Description("Finished")]
         FIN
     }

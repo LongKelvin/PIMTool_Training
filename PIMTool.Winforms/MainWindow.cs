@@ -26,8 +26,6 @@ namespace PIMTool.Winforms
             {
                 _logger.LogInformation(employee.ToString());
             }
-
-
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace PIMTool.Winforms
+﻿using MetroSet_UI.Components;
+
+namespace PIMTool.Winforms
 {
     partial class MainWindow
     {
@@ -28,23 +30,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            styleManager1 = new StyleManager();
             panelMenu = new Panel();
             tableLayoutPanel_Menus = new TableLayoutPanel();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
             panelContentViews = new Panel();
+            _metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
+            metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             panelMenu.SuspendLayout();
             tableLayoutPanel_Menus.SuspendLayout();
             SuspendLayout();
+            // 
+            // styleManager1
+            // 
+            styleManager1.CustomTheme = "C:\\Users\\KLO1HC\\AppData\\Roaming\\Microsoft\\Windows\\Templates\\ThemeFile.xml";
+            styleManager1.MetroForm = this;
+            styleManager1.Style = MetroSet_UI.Enums.Style.Light;
+            styleManager1.ThemeAuthor = "Narwin";
+            styleManager1.ThemeName = "MetroLite";
             // 
             // panelMenu
             // 
             panelMenu.Controls.Add(tableLayoutPanel_Menus);
             panelMenu.Dock = DockStyle.Left;
-            panelMenu.Location = new Point(0, 0);
+            panelMenu.Location = new Point(12, 70);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(200, 450);
+            panelMenu.Size = new Size(200, 368);
             panelMenu.TabIndex = 0;
             // 
             // tableLayoutPanel_Menus
@@ -100,19 +113,76 @@
             // panelContentViews
             // 
             panelContentViews.Dock = DockStyle.Fill;
-            panelContentViews.Location = new Point(200, 0);
+            panelContentViews.Location = new Point(212, 70);
             panelContentViews.Name = "panelContentViews";
-            panelContentViews.Size = new Size(600, 450);
+            panelContentViews.Size = new Size(576, 368);
             panelContentViews.TabIndex = 1;
+            // 
+            // _metroSetControlBox1
+            // 
+            _metroSetControlBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            _metroSetControlBox1.BackColor = Color.Transparent;
+            _metroSetControlBox1.CloseHoverBackColor = Color.FromArgb(183, 40, 40);
+            _metroSetControlBox1.CloseHoverForeColor = Color.White;
+            _metroSetControlBox1.CloseNormalForeColor = Color.Gray;
+            _metroSetControlBox1.DisabledForeColor = Color.DimGray;
+            _metroSetControlBox1.IsDerivedStyle = true;
+            _metroSetControlBox1.Location = new Point(1026, 13);
+            _metroSetControlBox1.MaximizeBox = true;
+            _metroSetControlBox1.MaximizeHoverBackColor = Color.FromArgb(238, 238, 238);
+            _metroSetControlBox1.MaximizeHoverForeColor = Color.Gray;
+            _metroSetControlBox1.MaximizeNormalForeColor = Color.Gray;
+            _metroSetControlBox1.MinimizeBox = true;
+            _metroSetControlBox1.MinimizeHoverBackColor = Color.FromArgb(238, 238, 238);
+            _metroSetControlBox1.MinimizeHoverForeColor = Color.Gray;
+            _metroSetControlBox1.MinimizeNormalForeColor = Color.Gray;
+            _metroSetControlBox1.Name = "_metroSetControlBox1";
+            _metroSetControlBox1.Size = new Size(100, 25);
+            _metroSetControlBox1.Style = MetroSet_UI.Enums.Style.Light;
+            _metroSetControlBox1.StyleManager = styleManager1;
+            _metroSetControlBox1.TabIndex = 1;
+            _metroSetControlBox1.Text = "_metroSetControlBox1";
+            _metroSetControlBox1.ThemeAuthor = "Narwin";
+            _metroSetControlBox1.ThemeName = "MetroLite";
+            // 
+            // metroSetControlBox1
+            // 
+            metroSetControlBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            metroSetControlBox1.BackColor = Color.Transparent;
+            metroSetControlBox1.CloseHoverBackColor = Color.FromArgb(183, 40, 40);
+            metroSetControlBox1.CloseHoverForeColor = Color.White;
+            metroSetControlBox1.CloseNormalForeColor = Color.Gray;
+            metroSetControlBox1.DisabledForeColor = Color.DimGray;
+            metroSetControlBox1.IsDerivedStyle = true;
+            metroSetControlBox1.Location = new Point(688, 14);
+            metroSetControlBox1.MaximizeBox = true;
+            metroSetControlBox1.MaximizeHoverBackColor = Color.FromArgb(238, 238, 238);
+            metroSetControlBox1.MaximizeHoverForeColor = Color.Gray;
+            metroSetControlBox1.MaximizeNormalForeColor = Color.Gray;
+            metroSetControlBox1.MinimizeBox = true;
+            metroSetControlBox1.MinimizeHoverBackColor = Color.FromArgb(238, 238, 238);
+            metroSetControlBox1.MinimizeHoverForeColor = Color.Gray;
+            metroSetControlBox1.MinimizeNormalForeColor = Color.Gray;
+            metroSetControlBox1.Name = "metroSetControlBox1";
+            metroSetControlBox1.Size = new Size(100, 25);
+            metroSetControlBox1.Style = MetroSet_UI.Enums.Style.Light;
+            metroSetControlBox1.StyleManager = styleManager1;
+            metroSetControlBox1.TabIndex = 2;
+            metroSetControlBox1.Text = "metroSetControlBox1";
+            metroSetControlBox1.ThemeAuthor = "Narwin";
+            metroSetControlBox1.ThemeName = "MetroLite";
             // 
             // MainWindow
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(metroSetControlBox1);
             Controls.Add(panelContentViews);
             Controls.Add(panelMenu);
+            Controls.Add(_metroSetControlBox1);
             Name = "MainWindow";
+            StyleManager = styleManager1;
             Text = "Main Window";
             panelMenu.ResumeLayout(false);
             tableLayoutPanel_Menus.ResumeLayout(false);
@@ -127,5 +197,9 @@
         private Button button3;
         private Button button2;
         private Button button1;
+
+        private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
+        private StyleManager styleManager1;
+        private MetroSet_UI.Controls.MetroSetControlBox metroSetControlBox1;
     }
 }

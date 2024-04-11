@@ -1,3 +1,6 @@
+using MetroSet_UI.Enums;
+using MetroSet_UI.Forms;
+
 using Microsoft.Extensions.Logging;
 
 using PIMTool.Core.Wrapper.Interfaces;
@@ -6,17 +9,12 @@ using PIMTool.Winforms.UserControls;
 
 namespace PIMTool.Winforms
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : MetroSetForm
     {
         // UI Components
         private NavigationControl navigationControl;
 
         private NavigationButtons navigationButtons;
-
-        // Change the color of your menuButtons if you want
-        private Color btnDefaultColor = Color.FromKnownColor(KnownColor.ControlLight);
-
-        private Color btnSelectedtColor = Color.FromKnownColor(KnownColor.ControlDark);
 
         // Repositories
         private readonly IRepositoryWrapper _repositoryWrapper;
@@ -33,6 +31,8 @@ namespace PIMTool.Winforms
             InitializeNavigationControl();
             InitializeNavigationButtons();
 
+            styleManager1.Style = Style.Light;
+
             // Repositories components
             _repositoryWrapper = repositoryWrapper;
 
@@ -42,7 +42,7 @@ namespace PIMTool.Winforms
 
             foreach (var employee in listEmployees)
             {
-                _logger.LogInformation(employee.ToString());
+                _logger.LogInformation(message: employee.ToString());
             }
         }
 
@@ -65,7 +65,10 @@ namespace PIMTool.Winforms
             List<Button> menuButtons = [button1, button2, button3];
 
             // create a NavigationButtons instance
-            navigationButtons = new NavigationButtons(menuButtons, btnDefaultColor, btnSelectedtColor);
+            navigationButtons = new NavigationButtons(menuButtons,
+                Color.FromKnownColor(KnownColor.ControlLight),
+                Color.FromKnownColor(KnownColor.ControlDark));
+
             // Make a default selected button
             navigationButtons.Highlight(button1);
         }
@@ -86,6 +89,8 @@ namespace PIMTool.Winforms
         {
             navigationControl.Display("UserControl3");
             navigationButtons.Highlight(button3);
+
+            MetroSetMessageBox.Show(this, "A new update available, do you want to update it now ?", "Available Update", MessageBoxButtons.YesNo);
         }
     }
 }

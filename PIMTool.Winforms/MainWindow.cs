@@ -1,3 +1,4 @@
+using MetroSet_UI.Controls;
 using MetroSet_UI.Enums;
 using MetroSet_UI.Forms;
 
@@ -62,7 +63,7 @@ namespace PIMTool.Winforms
 
         private void InitializeNavigationButtons()
         {
-            List<Button> menuButtons = [button1, button2, button3];
+            List<MetroSetButton> menuButtons = [button1, button2, button3];
 
             // create a NavigationButtons instance
             navigationButtons = new NavigationButtons(menuButtons,

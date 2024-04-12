@@ -1,4 +1,5 @@
 ﻿using MetroSet_UI.Components;
+using MetroSet_UI.Controls;
 
 namespace PIMTool.Winforms
 {
@@ -33,9 +34,9 @@ namespace PIMTool.Winforms
             styleManager1 = new StyleManager();
             panelMenu = new Panel();
             tableLayoutPanel_Menus = new TableLayoutPanel();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            button3 = new MetroSetButton();
+            button2 = new MetroSetButton();
+            button1 = new MetroSetButton();
             panelContentViews = new Panel();
             _metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
             metroSetControlBox1 = new MetroSet_UI.Controls.MetroSetControlBox();
@@ -85,7 +86,6 @@ namespace PIMTool.Winforms
             button3.Size = new Size(194, 44);
             button3.TabIndex = 2;
             button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
             // button2
@@ -96,7 +96,6 @@ namespace PIMTool.Winforms
             button2.Size = new Size(194, 43);
             button2.TabIndex = 1;
             button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
             // button1
@@ -107,7 +106,6 @@ namespace PIMTool.Winforms
             button1.Size = new Size(194, 43);
             button1.TabIndex = 0;
             button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // panelContentViews
@@ -194,9 +192,9 @@ namespace PIMTool.Winforms
         private Panel panelMenu;
         private Panel panelContentViews;
         private TableLayoutPanel tableLayoutPanel_Menus;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private MetroSetButton button3;
+        private MetroSetButton button2;
+        private MetroSetButton button1;
 
         private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
         private StyleManager styleManager1;

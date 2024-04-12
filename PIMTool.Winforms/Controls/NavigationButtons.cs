@@ -1,12 +1,14 @@
-﻿namespace PIMTool.Winforms.Controls
+﻿using MetroSet_UI.Controls;
+
+namespace PIMTool.Winforms.Controls
 {
     internal class NavigationButtons
     {
-        private readonly List<Button> _listButtons;
+        private readonly List<MetroSetButton> _listButtons;
         private Color _defaultColor;
         private Color _selectedColor;
 
-        public NavigationButtons(List<Button> buttons, Color defaultColor, Color selectedColor)
+        public NavigationButtons(List<MetroSetButton> buttons, Color defaultColor, Color selectedColor)
         {
             _listButtons = buttons;
             _defaultColor = defaultColor;
@@ -17,15 +19,15 @@
 
         private void SetButtonColor()
         {
-            foreach (Button button in _listButtons)
+            foreach (MetroSetButton button in _listButtons)
             {
                 button.BackColor = _defaultColor;
             }
         }
 
-        public void Highlight(Button selectedButton)
+        public void Highlight(MetroSetButton selectedButton)
         {
-            foreach (Button button in _listButtons)
+            foreach (MetroSetButton button in _listButtons)
             {
                 if (button == selectedButton)
                 {

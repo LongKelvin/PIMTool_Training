@@ -2,7 +2,7 @@
 
 namespace PIMTool.Winforms.Controls
 {
-    internal class NavigationButtons
+    public class NavigationButtons
     {
         private readonly List<MetroSetButton> _listButtons;
         private Color _defaultColor;

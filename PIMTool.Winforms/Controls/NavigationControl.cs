@@ -19,6 +19,14 @@
             AddUserControl();
         }
 
+        public void SetNavigationControl(List<CustomUserControl> listUserControls, Panel panel)
+        {
+            _listUserControls = listUserControls;
+            _panel = panel;
+
+            AddUserControl();
+        }
+
         private void AddUserControl()
         {
             for (int index = 0; index < _listUserControls.Count; index++)
@@ -41,7 +49,9 @@
             var window = _listUserControls.Find(x => x.Name.Equals(windowName, StringComparison.OrdinalIgnoreCase));
             if (window != null)
             {
-                _listUserControls!.Find(x => x.Name.Equals(window.Name))!.UserControl.BringToFront();
+                var userControl = _listUserControls!.Find(x => x.Name.Equals(window.Name))!.UserControl;
+                userControl.BringToFront();
+
             }
         }
     }

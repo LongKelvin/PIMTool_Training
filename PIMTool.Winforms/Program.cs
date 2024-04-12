@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging.Console;
 using PIMTool.Core.Wrapper;
 using PIMTool.Core.Wrapper.Interfaces;
 using PIMTool.DataAccess;
+using PIMTool.Winforms.Controls;
+using PIMTool.Winforms.UserControls;
 
 using Serilog;
 using Serilog.Events;
@@ -62,7 +64,10 @@ namespace PIMTool.Winforms
                         .EnableSensitiveDataLogging());
 
                     ConfigureRepositoryWrapper(services);
+                    services.AddSingleton<NavigationControl>();
                     services.AddTransient<MainWindow>();
+                    services.AddTransient<NewProject>();
+                    services.AddTransient<ProjectList>();
                 });
         }
 

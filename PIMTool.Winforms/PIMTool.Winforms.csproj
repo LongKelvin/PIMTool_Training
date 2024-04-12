@@ -41,9 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="UserControls\UserControl2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="UserControls\NewProject.cs" />
     <Compile Update="UserControls\UserControl3.cs">
       <SubType>UserControl</SubType>
     </Compile>

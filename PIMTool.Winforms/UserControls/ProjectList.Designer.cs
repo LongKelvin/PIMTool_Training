@@ -1,6 +1,6 @@
 ﻿namespace PIMTool.Winforms.UserControls
 {
-    partial class UserControl1
+    partial class ProjectList
     {
         /// <summary> 
         /// Required designer variable.
@@ -41,12 +41,12 @@
             label1.TabIndex = 0;
             label1.Text = "label1";
             // 
-            // UserControl1
+            // ProjectList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label1);
-            Name = "UserControl1";
+            Name = "ProjectList";
             Size = new Size(700, 400);
             ResumeLayout(false);
             PerformLayout();

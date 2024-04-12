@@ -1,8 +1,8 @@
 ﻿namespace PIMTool.Winforms.UserControls
 {
-    public partial class UserControl2 : UserControl
+    public partial class ProjectList : UserControl
     {
-        public UserControl2()
+        public ProjectList()
         {
             InitializeComponent();
         }

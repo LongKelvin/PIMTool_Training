@@ -57,11 +57,13 @@ namespace PIMTool.DataAccess.SampleData
                 {
                     new() {
                         GroupLeaderId = listEmployees[0].Id,
-                        GroupLeader=listEmployees[0]
+                        GroupLeader=listEmployees[0],
+                        GroupName = "PS-EC"
                     },
                      new() {
                         GroupLeaderId = listEmployees[1].Id,
-                        GroupLeader=listEmployees[1]
+                        GroupLeader=listEmployees[1],
+                        GroupName= "ETAS-EC"
                     },
                 };
 

@@ -50,6 +50,7 @@ namespace PIMTool.Winforms
             styleManager1.Style = MetroSet_UI.Enums.Style.Light;
             styleManager1.ThemeAuthor = "Narwin";
             styleManager1.ThemeName = "MetroLite";
+           
             // 
             // panelMenu
             // 

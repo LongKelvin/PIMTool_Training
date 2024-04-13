@@ -382,7 +382,7 @@ namespace PIMTool.Winforms.UserControls
             btnCancel.HoverColor = Color.FromArgb(95, 207, 255);
             btnCancel.HoverTextColor = Color.White;
             btnCancel.IsDerivedStyle = true;
-            btnCancel.Location = new Point(737, 660);
+            btnCancel.Location = new Point(749, 660);
             btnCancel.Name = "btnCancel";
             btnCancel.NormalBorderColor = Color.FromArgb(65, 177, 225);
             btnCancel.NormalColor = Color.FromArgb(65, 177, 225);
@@ -451,7 +451,7 @@ namespace PIMTool.Winforms.UserControls
             Controls.Add(lblProjectNumber);
             Controls.Add(lblNewProject);
             Name = "NewProject";
-            Size = new Size(1150, 720);
+            Size = new Size(1125, 720);
             Load += NewProject_Load;
             ResumeLayout(false);
             PerformLayout();

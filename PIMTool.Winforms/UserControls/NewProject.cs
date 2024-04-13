@@ -1,26 +1,24 @@
 ﻿using PIMTool.Core.Wrapper.Interfaces;
 using PIMTool.Entities.Enums;
-using PIMTool.Winforms.Controls;
+using PIMTool.Winforms.Events;
 using PIMTool.Winforms.Interfaces;
 
 namespace PIMTool.Winforms.UserControls
 {
-    public partial class NewProject : UserControl, INavigationHandler
+    public partial class NewProject : BaseUserControl, INavigationHandler
     {
-        private readonly NavigationControl _navigationControl;
         private readonly IRepositoryWrapper _repositoryWrapper;
 
-        public NewProject(NavigationControl navigationControl, IRepositoryWrapper repositoryWrapper)
+        public NewProject(IRepositoryWrapper repositoryWrapper)
         {
             InitializeComponent();
 
-            _navigationControl = navigationControl;
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public void NavigateTo(string userControlName)
+        public void NavigateTo(string userControlName, object[]? data = null)
         {
-            _navigationControl.Display(userControlName);
+            NavigationRequested?.Invoke(this, new NavigationEventArgs(userControlName, data));
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -30,6 +28,8 @@ namespace PIMTool.Winforms.UserControls
 
         private void btnCreateProject_Click(object sender, EventArgs e)
         {
+            NavigateTo(nameof(ProjectList));
+
             // Handle create project button click
         }
 

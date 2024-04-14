@@ -21,6 +21,7 @@ namespace PIMTool.Entities
         {
             Projects = [];
             GroupLeader = new Employee();
+            GroupName = string.Empty;
         }
     }
 }

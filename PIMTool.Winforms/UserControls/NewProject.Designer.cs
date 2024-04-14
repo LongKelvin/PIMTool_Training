@@ -115,7 +115,7 @@ namespace PIMTool.Winforms.UserControls
             lblProjectName.AutoSize = true;
             lblProjectName.Font = new Font("Microsoft Sans Serif", 10F);
             lblProjectName.IsDerivedStyle = true;
-            lblProjectName.Location = new Point(20, 180);
+            lblProjectName.Location = new Point(20, 160);
             lblProjectName.Name = "lblProjectName";
             lblProjectName.Size = new Size(93, 17);
             lblProjectName.Style = MetroSet_UI.Enums.Style.Light;
@@ -139,7 +139,7 @@ namespace PIMTool.Winforms.UserControls
             txtProjectName.Image = null;
             txtProjectName.IsDerivedStyle = true;
             txtProjectName.Lines = null;
-            txtProjectName.Location = new Point(220, 180);
+            txtProjectName.Location = new Point(220, 160);
             txtProjectName.MaxLength = 32767;
             txtProjectName.Multiline = false;
             txtProjectName.Name = "txtProjectName";
@@ -159,7 +159,7 @@ namespace PIMTool.Winforms.UserControls
             lblCustomer.AutoSize = true;
             lblCustomer.Font = new Font("Microsoft Sans Serif", 10F);
             lblCustomer.IsDerivedStyle = true;
-            lblCustomer.Location = new Point(20, 260);
+            lblCustomer.Location = new Point(20, 220);
             lblCustomer.Name = "lblCustomer";
             lblCustomer.Size = new Size(68, 17);
             lblCustomer.Style = MetroSet_UI.Enums.Style.Light;
@@ -183,7 +183,7 @@ namespace PIMTool.Winforms.UserControls
             txtCustomer.Image = null;
             txtCustomer.IsDerivedStyle = true;
             txtCustomer.Lines = null;
-            txtCustomer.Location = new Point(220, 260);
+            txtCustomer.Location = new Point(220, 220);
             txtCustomer.MaxLength = 32767;
             txtCustomer.Multiline = false;
             txtCustomer.Name = "txtCustomer";
@@ -203,7 +203,7 @@ namespace PIMTool.Winforms.UserControls
             lblGroup.AutoSize = true;
             lblGroup.Font = new Font("Microsoft Sans Serif", 10F);
             lblGroup.IsDerivedStyle = true;
-            lblGroup.Location = new Point(20, 340);
+            lblGroup.Location = new Point(20, 280);
             lblGroup.Name = "lblGroup";
             lblGroup.Size = new Size(48, 17);
             lblGroup.Style = MetroSet_UI.Enums.Style.Light;
@@ -225,12 +225,12 @@ namespace PIMTool.Winforms.UserControls
             cmbGroup.DisabledBorderColor = Color.FromArgb(155, 155, 155);
             cmbGroup.DisabledForeColor = Color.FromArgb(136, 136, 136);
             cmbGroup.DrawMode = DrawMode.OwnerDrawFixed;
-            cmbGroup.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGroup.FlatStyle = FlatStyle.Flat;
             cmbGroup.Font = new Font("Microsoft Sans Serif", 11F);
             cmbGroup.FormattingEnabled = true;
             cmbGroup.IsDerivedStyle = true;
             cmbGroup.ItemHeight = 26;
-            cmbGroup.Location = new Point(220, 340);
+            cmbGroup.Location = new Point(220, 280);
             cmbGroup.Name = "cmbGroup";
             cmbGroup.SelectedItemBackColor = Color.FromArgb(65, 177, 225);
             cmbGroup.SelectedItemForeColor = Color.White;
@@ -246,7 +246,7 @@ namespace PIMTool.Winforms.UserControls
             lblMember.AutoSize = true;
             lblMember.Font = new Font("Microsoft Sans Serif", 10F);
             lblMember.IsDerivedStyle = true;
-            lblMember.Location = new Point(20, 420);
+            lblMember.Location = new Point(20, 340);
             lblMember.Name = "lblMember";
             lblMember.Size = new Size(59, 17);
             lblMember.Style = MetroSet_UI.Enums.Style.Light;
@@ -270,12 +270,12 @@ namespace PIMTool.Winforms.UserControls
             txtMember.Image = null;
             txtMember.IsDerivedStyle = true;
             txtMember.Lines = null;
-            txtMember.Location = new Point(220, 420);
+            txtMember.Location = new Point(220, 340);
             txtMember.MaxLength = 32767;
             txtMember.Multiline = false;
             txtMember.Name = "txtMember";
             txtMember.ReadOnly = false;
-            txtMember.Size = new Size(300, 30);
+            txtMember.Size = new Size(600, 30);
             txtMember.Style = MetroSet_UI.Enums.Style.Light;
             txtMember.StyleManager = null;
             txtMember.TabIndex = 10;
@@ -284,13 +284,14 @@ namespace PIMTool.Winforms.UserControls
             txtMember.ThemeName = "MetroLite";
             txtMember.UseSystemPasswordChar = false;
             txtMember.WatermarkText = "";
+            txtMember.TextChanged += txtMember_TextChanged;
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Microsoft Sans Serif", 10F);
             lblStatus.IsDerivedStyle = true;
-            lblStatus.Location = new Point(20, 500);
+            lblStatus.Location = new Point(20, 400);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(48, 17);
             lblStatus.Style = MetroSet_UI.Enums.Style.Light;
@@ -313,11 +314,12 @@ namespace PIMTool.Winforms.UserControls
             cmbStatus.DisabledForeColor = Color.FromArgb(136, 136, 136);
             cmbStatus.DrawMode = DrawMode.OwnerDrawFixed;
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatus.FlatStyle = FlatStyle.Flat;
             cmbStatus.Font = new Font("Microsoft Sans Serif", 11F);
             cmbStatus.FormattingEnabled = true;
             cmbStatus.IsDerivedStyle = true;
             cmbStatus.ItemHeight = 26;
-            cmbStatus.Location = new Point(220, 500);
+            cmbStatus.Location = new Point(220, 400);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.SelectedItemBackColor = Color.FromArgb(65, 177, 225);
             cmbStatus.SelectedItemForeColor = Color.White;
@@ -333,7 +335,7 @@ namespace PIMTool.Winforms.UserControls
             lblStartDate.AutoSize = true;
             lblStartDate.Font = new Font("Microsoft Sans Serif", 10F);
             lblStartDate.IsDerivedStyle = true;
-            lblStartDate.Location = new Point(20, 580);
+            lblStartDate.Location = new Point(20, 460);
             lblStartDate.Name = "lblStartDate";
             lblStartDate.Size = new Size(72, 17);
             lblStartDate.Style = MetroSet_UI.Enums.Style.Light;
@@ -345,9 +347,9 @@ namespace PIMTool.Winforms.UserControls
             // 
             // dtStartDate
             // 
-            dtStartDate.Location = new Point(220, 580);
+            dtStartDate.Location = new Point(220, 460);
             dtStartDate.Name = "dtStartDate";
-            dtStartDate.Size = new Size(300, 23);
+            dtStartDate.Size = new Size(300, 27);
             dtStartDate.TabIndex = 14;
             // 
             // lblEndDate
@@ -355,7 +357,7 @@ namespace PIMTool.Winforms.UserControls
             lblEndDate.AutoSize = true;
             lblEndDate.Font = new Font("Microsoft Sans Serif", 10F);
             lblEndDate.IsDerivedStyle = true;
-            lblEndDate.Location = new Point(600, 580);
+            lblEndDate.Location = new Point(600, 460);
             lblEndDate.Name = "lblEndDate";
             lblEndDate.Size = new Size(67, 17);
             lblEndDate.Style = MetroSet_UI.Enums.Style.Light;
@@ -367,9 +369,9 @@ namespace PIMTool.Winforms.UserControls
             // 
             // dtEndDate
             // 
-            dtEndDate.Location = new Point(800, 580);
+            dtEndDate.Location = new Point(800, 460);
             dtEndDate.Name = "dtEndDate";
-            dtEndDate.Size = new Size(300, 23);
+            dtEndDate.Size = new Size(300, 27);
             dtEndDate.TabIndex = 16;
             // 
             // btnCancel
@@ -382,7 +384,7 @@ namespace PIMTool.Winforms.UserControls
             btnCancel.HoverColor = Color.FromArgb(95, 207, 255);
             btnCancel.HoverTextColor = Color.White;
             btnCancel.IsDerivedStyle = true;
-            btnCancel.Location = new Point(749, 660);
+            btnCancel.Location = new Point(749, 600);
             btnCancel.Name = "btnCancel";
             btnCancel.NormalBorderColor = Color.FromArgb(65, 177, 225);
             btnCancel.NormalColor = Color.FromArgb(65, 177, 225);
@@ -409,7 +411,7 @@ namespace PIMTool.Winforms.UserControls
             btnCreateProject.HoverColor = Color.FromArgb(95, 207, 255);
             btnCreateProject.HoverTextColor = Color.White;
             btnCreateProject.IsDerivedStyle = true;
-            btnCreateProject.Location = new Point(950, 660);
+            btnCreateProject.Location = new Point(950, 600);
             btnCreateProject.Name = "btnCreateProject";
             btnCreateProject.NormalBorderColor = Color.FromArgb(65, 177, 225);
             btnCreateProject.NormalColor = Color.FromArgb(65, 177, 225);
@@ -431,6 +433,7 @@ namespace PIMTool.Winforms.UserControls
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.Control;
+            ClientSize = new Size(1125, 720);
             Controls.Add(btnCreateProject);
             Controls.Add(btnCancel);
             Controls.Add(dtEndDate);
@@ -451,7 +454,6 @@ namespace PIMTool.Winforms.UserControls
             Controls.Add(lblProjectNumber);
             Controls.Add(lblNewProject);
             Name = "NewProject";
-            Size = new Size(1125, 720);
             Load += NewProject_Load;
             ResumeLayout(false);
             PerformLayout();

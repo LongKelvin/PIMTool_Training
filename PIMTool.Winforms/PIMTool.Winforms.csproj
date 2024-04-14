@@ -44,6 +44,7 @@
     <ProjectReference Include="..\PIMTool.Core\PIMTool.Core.csproj" />
     <ProjectReference Include="..\PIMTool.DataAccess\PIMTool.DataAccess.csproj" />
     <ProjectReference Include="..\PIMTool.Models\PIMTool.Entities.csproj" />
+    <ProjectReference Include="..\PIMTool.Shared\PIMTool.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

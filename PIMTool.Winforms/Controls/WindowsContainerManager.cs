@@ -4,21 +4,21 @@ namespace PIMTool.Winforms.Controls
 {
     public class WindowsContainerManager
     {
-        public Dictionary<string, UserControl> WindowsContainer { get; private set; }
-        public UserControl? CurrentWindow { get; private set; }
+        public Dictionary<string, BaseUserControl> WindowsContainer { get; private set; }
+        public BaseUserControl? CurrentWindow { get; private set; }
         public Control? ParrentControl { get; set; }
 
         public WindowsContainerManager()
         {
             WindowsContainer = [];
-            CurrentWindow = new UserControl();
+            CurrentWindow = new BaseUserControl();
             ParrentControl = null;
         }
 
         public WindowsContainerManager(
-            Dictionary<string, UserControl> windowsContainer,
+            Dictionary<string, BaseUserControl> windowsContainer,
             Control parrentControl,
-            UserControl? currentWindow = null)
+            BaseUserControl? currentWindow = null)
         {
             WindowsContainer = windowsContainer;
             CurrentWindow = currentWindow ?? windowsContainer.First().Value;
@@ -29,7 +29,7 @@ namespace PIMTool.Winforms.Controls
 
         public virtual void Display(string userControlName, object[]? data = null)
         {
-            if (WindowsContainer.TryGetValue(userControlName, out UserControl? value))
+            if (WindowsContainer.TryGetValue(userControlName, out BaseUserControl? value))
             {
                 if (CurrentWindow != null)
                 {
@@ -48,7 +48,7 @@ namespace PIMTool.Winforms.Controls
             }
         }
 
-        public void AddUserControl(Control parrentControl, params UserControl[] userControls)
+        public void AddUserControl(Control parrentControl, params BaseUserControl[] userControls)
         {
             ParrentControl = parrentControl;
             WindowsContainer ??= [];
@@ -60,13 +60,15 @@ namespace PIMTool.Winforms.Controls
                     HandleDynamicNavigation(baseUserControl);
                 }
 
+                control.TopLevel = false;
+                control.Dock = DockStyle.Fill;
                 WindowsContainer.TryAdd(control.GetType().Name, control);
                 parrentControl.Controls.Add(control);
                 control.Visible = false;
             }
         }
 
-        public void AddUserControl(Control parrentControl, Dictionary<string, UserControl> userControlDictionary)
+        public void AddUserControl(Control parrentControl, Dictionary<string, BaseUserControl> userControlDictionary)
         {
             ParrentControl = parrentControl;
             WindowsContainer ??= [];
@@ -79,6 +81,8 @@ namespace PIMTool.Winforms.Controls
                     HandleDynamicNavigation(baseUserControl);
                 }
 
+                kvp.Value.TopLevel = false;
+                kvp.Value.Dock = DockStyle.Fill;
                 parrentControl.Controls.Add(kvp.Value);
                 WindowsContainer.TryAdd(kvp.Key, kvp.Value);
                 kvp.Value.Visible = false;

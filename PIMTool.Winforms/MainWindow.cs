@@ -39,7 +39,7 @@ namespace PIMTool.Winforms
         private void InitializeNavigationControl()
         {
             var newProjectWindow = Program.ServiceProvider.GetRequiredService<NewProject>();
-            var projectListWindow = new ProjectList();
+            var projectListWindow = Program.ServiceProvider.GetRequiredService<ProjectList>();
 
             _windowsContainerManager = new WindowsContainerManager
             {
@@ -61,6 +61,11 @@ namespace PIMTool.Winforms
         public void NavigateTo(string userControlName, object[]? data = null)
         {
             _windowsContainerManager.Display(userControlName, data);
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

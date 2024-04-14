@@ -39,8 +39,11 @@ namespace PIMTool.Winforms
             panelContentViews = new Panel();
             _metroSetControlBox1 = new MetroSetControlBox();
             metroSetControlBox1 = new MetroSetControlBox();
+            panelBottom = new Panel();
+            labelBottom = new Label();
             panelMenu.SuspendLayout();
             tableLayoutPanel_Menus.SuspendLayout();
+            panelBottom.SuspendLayout();
             SuspendLayout();
             // 
             // styleManager1
@@ -50,7 +53,6 @@ namespace PIMTool.Winforms
             styleManager1.Style = MetroSet_UI.Enums.Style.Light;
             styleManager1.ThemeAuthor = "Narwin";
             styleManager1.ThemeName = "MetroLite";
-           
             // 
             // panelMenu
             // 
@@ -135,10 +137,10 @@ namespace PIMTool.Winforms
             // 
             // panelContentViews
             // 
-            panelContentViews.Dock = DockStyle.Fill;
+            panelContentViews.Dock = DockStyle.Top;
             panelContentViews.Location = new Point(308, 70);
             panelContentViews.Name = "panelContentViews";
-            panelContentViews.Size = new Size(1280, 718);
+            panelContentViews.Size = new Size(1180, 670);
             panelContentViews.TabIndex = 1;
             // 
             // _metroSetControlBox1
@@ -150,7 +152,7 @@ namespace PIMTool.Winforms
             _metroSetControlBox1.CloseNormalForeColor = Color.Gray;
             _metroSetControlBox1.DisabledForeColor = Color.DimGray;
             _metroSetControlBox1.IsDerivedStyle = true;
-            _metroSetControlBox1.Location = new Point(1826, 13);
+            _metroSetControlBox1.Location = new Point(1726, 13);
             _metroSetControlBox1.MaximizeBox = true;
             _metroSetControlBox1.MaximizeHoverBackColor = Color.FromArgb(238, 238, 238);
             _metroSetControlBox1.MaximizeHoverForeColor = Color.Gray;
@@ -177,7 +179,7 @@ namespace PIMTool.Winforms
             metroSetControlBox1.CloseNormalForeColor = Color.Gray;
             metroSetControlBox1.DisabledForeColor = Color.DimGray;
             metroSetControlBox1.IsDerivedStyle = true;
-            metroSetControlBox1.Location = new Point(1488, 14);
+            metroSetControlBox1.Location = new Point(1388, 14);
             metroSetControlBox1.MaximizeBox = true;
             metroSetControlBox1.MaximizeHoverBackColor = Color.FromArgb(238, 238, 238);
             metroSetControlBox1.MaximizeHoverForeColor = Color.Gray;
@@ -195,20 +197,49 @@ namespace PIMTool.Winforms
             metroSetControlBox1.ThemeAuthor = "Narwin";
             metroSetControlBox1.ThemeName = "MetroLite";
             // 
+            // panelBottom
+            // 
+            panelBottom.Controls.Add(labelBottom);
+            panelBottom.Dock = DockStyle.Bottom;
+            panelBottom.Location = new Point(308, 746);
+            panelBottom.Name = "panelBottom";
+            panelBottom.Size = new Size(1180, 42);
+            panelBottom.TabIndex = 3;
+            // 
+            // labelBottom
+            // 
+            labelBottom.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelBottom.AutoSize = true;
+            labelBottom.ForeColor = Color.DimGray;
+            labelBottom.Location = new Point(403, 11);
+            labelBottom.Name = "labelBottom";
+            labelBottom.Size = new Size(208, 22);
+            labelBottom.TabIndex = 0;
+            labelBottom.Text = "PIMTool Training Project";
+            labelBottom.TextAlign = ContentAlignment.MiddleCenter;
+            labelBottom.UseMnemonic = false;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1600, 800);
+            ClientSize = new Size(1500, 800);
+            Controls.Add(panelBottom);
             Controls.Add(metroSetControlBox1);
             Controls.Add(panelContentViews);
             Controls.Add(panelMenu);
             Controls.Add(_metroSetControlBox1);
+            MaximumSize = new Size(1500, 800);
+            MinimumSize = new Size(1500, 800);
             Name = "MainWindow";
+            StartPosition = FormStartPosition.CenterScreen;
             StyleManager = styleManager1;
             Text = "Main Window";
+            Load += MainWindow_Load;
             panelMenu.ResumeLayout(false);
             tableLayoutPanel_Menus.ResumeLayout(false);
+            panelBottom.ResumeLayout(false);
+            panelBottom.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -223,5 +254,7 @@ namespace PIMTool.Winforms
         private MetroSet_UI.Controls.MetroSetControlBox _metroSetControlBox1;
         private StyleManager styleManager1;
         private MetroSet_UI.Controls.MetroSetControlBox metroSetControlBox1;
+        private Panel panelBottom;
+        private Label labelBottom;
     }
 }

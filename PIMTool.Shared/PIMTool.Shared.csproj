@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PIMTool.Models\PIMTool.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

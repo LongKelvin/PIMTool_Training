@@ -12,7 +12,6 @@ namespace PIMTool.Winforms.UserControls
         public NewProject(IRepositoryWrapper repositoryWrapper)
         {
             InitializeComponent();
-
             _repositoryWrapper = repositoryWrapper;
         }
 
@@ -29,8 +28,6 @@ namespace PIMTool.Winforms.UserControls
         private void btnCreateProject_Click(object sender, EventArgs e)
         {
             NavigateTo(nameof(ProjectList));
-
-            // Handle create project button click
         }
 
         private void LoadGroupDataComboBox()
@@ -49,9 +46,13 @@ namespace PIMTool.Winforms.UserControls
         private void NewProject_Load(object sender, EventArgs e)
         {
             //Init combobox data
-
             LoadGroupDataComboBox();
             LoadProjectStatusDefaultCombobox();
+        }
+
+        private void txtMember_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

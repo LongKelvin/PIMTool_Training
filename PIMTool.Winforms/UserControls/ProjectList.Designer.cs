@@ -1,4 +1,7 @@
-﻿using MetroSet_UI.Controls;
+﻿using MaterialSkin2DotNet;
+using MaterialSkin2DotNet.Controls;
+
+using MetroSet_UI.Controls;
 
 namespace PIMTool.Winforms.UserControls
 {
@@ -30,7 +33,12 @@ namespace PIMTool.Winforms.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridViewProjects = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+
+            dataGridViewProjects = new MaterialDataTable();
             SelectColumn = new DataGridViewCheckBoxColumn();
             DeleteColumn = new DataGridViewButtonColumn();
             txtSearchBox = new MetroSetTextBox();
@@ -45,21 +53,63 @@ namespace PIMTool.Winforms.UserControls
             // 
             dataGridViewProjects.AllowUserToAddRows = false;
             dataGridViewProjects.AllowUserToDeleteRows = false;
-            dataGridViewProjects.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProjects.AllowUserToResizeRows = false;
+            dataGridViewProjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProjects.BackgroundColor = Color.White;
+            dataGridViewProjects.BorderStyle = BorderStyle.None;
+            dataGridViewProjects.CellBorderStyle = DataGridViewCellBorderStyle.SunkenHorizontal;
+            dataGridViewProjects.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle1.Font = new Font("Roboto Medium", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewProjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewProjects.ColumnHeadersHeight = 56;
+            dataGridViewProjects.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewProjects.Columns.AddRange(new DataGridViewColumn[] { SelectColumn, DeleteColumn });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(63, 81, 181);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewProjects.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewProjects.Depth = 0;
+            dataGridViewProjects.EnableHeadersVisualStyles = false;
+            dataGridViewProjects.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewProjects.GridColor = Color.FromArgb(95, 207, 255);
             dataGridViewProjects.Location = new Point(15, 179);
+            dataGridViewProjects.MouseState = MouseState.HOVER;
             dataGridViewProjects.Name = "dataGridViewProjects";
             dataGridViewProjects.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewProjects.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewProjects.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            dataGridViewProjects.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewProjects.RowTemplate.Height = 24;
+            dataGridViewProjects.ScrollBars = ScrollBars.None;
+            dataGridViewProjects.ShowVerticalScroll = false;
             dataGridViewProjects.Size = new Size(1101, 400);
             dataGridViewProjects.TabIndex = 0;
             // 
             // SelectColumn
             // 
-            SelectColumn.HeaderText = "Select";
+            SelectColumn.HeaderText = "";
             SelectColumn.Name = "SelectColumn";
-            SelectColumn.ReadOnly = true;
+            SelectColumn.ReadOnly = false;
+
             // 
             // DeleteColumn
             // 
@@ -68,6 +118,7 @@ namespace PIMTool.Winforms.UserControls
             DeleteColumn.ReadOnly = true;
             DeleteColumn.Text = "Delete";
             DeleteColumn.UseColumnTextForButtonValue = true;
+            
             // 
             // txtSearchBox
             // 
@@ -98,7 +149,7 @@ namespace PIMTool.Winforms.UserControls
             txtSearchBox.UseSystemPasswordChar = false;
             txtSearchBox.WatermarkText = "";
             // 
-            // cboProjectStatus
+            // cmbProjectStatus
             // 
             cmbProjectStatus.AllowDrop = true;
             cmbProjectStatus.ArrowColor = Color.FromArgb(150, 150, 150);
@@ -115,7 +166,7 @@ namespace PIMTool.Winforms.UserControls
             cmbProjectStatus.IsDerivedStyle = true;
             cmbProjectStatus.ItemHeight = 26;
             cmbProjectStatus.Location = new Point(430, 100);
-            cmbProjectStatus.Name = "cboProjectStatus";
+            cmbProjectStatus.Name = "cmbProjectStatus";
             cmbProjectStatus.SelectedItemBackColor = Color.FromArgb(65, 177, 225);
             cmbProjectStatus.SelectedItemForeColor = Color.White;
             cmbProjectStatus.Size = new Size(250, 32);
@@ -166,8 +217,8 @@ namespace PIMTool.Winforms.UserControls
             btnReset.Location = new Point(934, 101);
             btnReset.Name = "btnReset";
             btnReset.NormalBorderColor = Color.FromArgb(65, 177, 225);
-            btnReset.NormalColor = Color.Transparent;
-            btnReset.NormalTextColor = Color.FromArgb(65, 177, 225);
+            btnReset.NormalColor = Color.FromArgb(65, 177, 225);
+            btnReset.NormalTextColor = Color.White;
             btnReset.PressBorderColor = Color.FromArgb(35, 147, 195);
             btnReset.PressColor = Color.FromArgb(35, 147, 195);
             btnReset.PressTextColor = Color.White;
@@ -215,7 +266,7 @@ namespace PIMTool.Winforms.UserControls
 
         #endregion
 
-        private DataGridView dataGridViewProjects;
+        private MaterialDataTable dataGridViewProjects;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectColumn;
 

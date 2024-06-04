@@ -32,10 +32,10 @@ namespace PIMTool.Winforms
             using (var scope = ServiceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<PIMToolDbContext>();
-                //dbContext.Database.Migrate(); // Ensure database is created and migrated
+                dbContext.Database.Migrate(); // Ensure database is created and migrated
 
                 ////Seed data after database initialization
-                //DataAccess.SampleData.SampleData.InitializeData(dbContext);
+                DataAccess.SampleData.SampleData.InitializeData(dbContext);
             }
 
             Application.EnableVisualStyles();
@@ -50,7 +50,7 @@ namespace PIMTool.Winforms
             ConfigureConfiguration();
 
             //Load connection string from appsettings.json
-            string connectionString = _configuration!.GetConnectionString("PIMToolDbConnection2")!;
+            string connectionString = _configuration!.GetConnectionString("PIMToolAzureSQLConnection")!;
 
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>

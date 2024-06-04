@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIMTool.Entities
 {
@@ -6,6 +7,10 @@ namespace PIMTool.Entities
     public class Group : BaseEntity
     {
         public int GroupLeaderId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string GroupName { get; set; }
 
         [ForeignKey("GroupLeaderId")]
         public virtual Employee GroupLeader { get; set; }
@@ -16,6 +21,7 @@ namespace PIMTool.Entities
         {
             Projects = [];
             GroupLeader = new Employee();
+            GroupName = string.Empty;
         }
     }
 }

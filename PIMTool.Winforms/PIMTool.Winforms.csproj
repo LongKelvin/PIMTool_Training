@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Themes\**" />
+    <EmbeddedResource Remove="Themes\**" />
+    <None Remove="Themes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialSkin2DotNet" Version="1.1.2" />
     <PackageReference Include="MetroSet_UI" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
@@ -38,12 +45,11 @@
     <ProjectReference Include="..\PIMTool.Core\PIMTool.Core.csproj" />
     <ProjectReference Include="..\PIMTool.DataAccess\PIMTool.DataAccess.csproj" />
     <ProjectReference Include="..\PIMTool.Models\PIMTool.Entities.csproj" />
+    <ProjectReference Include="..\PIMTool.Shared\PIMTool.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="UserControls\UserControl2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="UserControls\NewProject.cs" />
     <Compile Update="UserControls\UserControl3.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -53,10 +59,6 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Themes\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-﻿namespace PIMTool.Winforms.UserControls
+﻿namespace PIMTool.Winforms.UserControls.CustomControls
 {
-    partial class UserControl1
+    partial class SearchCombobox
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,32 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(293, 160);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 32);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
-            // 
-            // UserControl1
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
-            Name = "UserControl1";
-            Size = new Size(700, 400);
-            ResumeLayout(false);
-            PerformLayout();
+            components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
 
         #endregion
-
-        private Label label1;
     }
 }

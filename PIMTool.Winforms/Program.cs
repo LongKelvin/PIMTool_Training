@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging.Console;
 using PIMTool.Core.Wrapper;
 using PIMTool.Core.Wrapper.Interfaces;
 using PIMTool.DataAccess;
+using PIMTool.Winforms.UserControls;
 
 using Serilog;
 using Serilog.Events;
@@ -30,7 +31,7 @@ namespace PIMTool.Winforms
             // Seed data after initializing the PIMToolDbContext
             using (var scope = ServiceProvider.CreateScope())
             {
-                //var dbContext = scope.ServiceProvider.GetRequiredService<PIMToolDbContext>();
+                var dbContext = scope.ServiceProvider.GetRequiredService<PIMToolDbContext>();
                 //dbContext.Database.Migrate(); // Ensure database is created and migrated
 
                 ////Seed data after database initialization
@@ -49,7 +50,7 @@ namespace PIMTool.Winforms
             ConfigureConfiguration();
 
             //Load connection string from appsettings.json
-            string connectionString = _configuration!.GetConnectionString("PIMToolDbConnection")!;
+            string connectionString = _configuration!.GetConnectionString("PIMToolDbConnection2")!;
 
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
@@ -62,7 +63,10 @@ namespace PIMTool.Winforms
                         .EnableSensitiveDataLogging());
 
                     ConfigureRepositoryWrapper(services);
+
                     services.AddTransient<MainWindow>();
+                    services.AddTransient<NewProject>();
+                    services.AddTransient<ProjectList>();
                 });
         }
 

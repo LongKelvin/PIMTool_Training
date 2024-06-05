@@ -32,7 +32,8 @@ namespace PIMTool.Winforms.UserControls
 
         private void LoadGroupDataComboBox()
         {
-            var groupData = _repositoryWrapper.Groups.GetAllAsync().ToList();
+            var groupData = _repositoryWrapper.Groups.GetAllAsync()
+                .Where(x => (!string.IsNullOrEmpty(x.GroupName))).ToList();
             cmbGroup.DataSource = groupData;
             cmbGroup.DisplayMember = "GroupName";
         }

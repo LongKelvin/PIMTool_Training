@@ -32,7 +32,18 @@ namespace PIMTool.Winforms
             using (var scope = ServiceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<PIMToolDbContext>();
-                dbContext.Database.Migrate(); // Ensure database is created and migrated
+
+                var useInMemoryDatabase = bool.Parse(_configuration!.GetSection("UseInMemoryDatabase").Value!);
+                if (useInMemoryDatabase)
+                {
+                    // For in memory database only
+                    dbContext.Database.EnsureCreated();
+                }
+                else
+                {
+                    // This settings is for EntityFrameworkCore.Relational, not need to use it when enable in memory options
+                    dbContext.Database.Migrate(); // Ensure database is created and migrated
+                }
 
                 ////Seed data after database initialization
                 DataAccess.SampleData.SampleData.InitializeData(dbContext);
@@ -50,17 +61,28 @@ namespace PIMTool.Winforms
             ConfigureConfiguration();
 
             //Load connection string from appsettings.json
-            string connectionString = _configuration!.GetConnectionString("PIMToolAzureSQLConnection")!;
+            string connectionString = _configuration!.GetConnectionString("PIMToolDbConnection")!;
+            var useInMemoryDatabase = bool.Parse(_configuration!.GetSection("UseInMemoryDatabase").Value!);
 
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
                     ConfigureLogging(services);
-                    services.AddDbContext<DbContext, PIMToolDbContext>(
-                        options => options
-                        .UseSqlServer(connectionString)
-                        .LogTo(Console.WriteLine, LogLevel.Information)
-                        .EnableSensitiveDataLogging());
+
+                    if (useInMemoryDatabase)
+                    {
+                        services.AddDbContext<DbContext, PIMToolDbContext>(options =>
+                            options.UseInMemoryDatabase("PIMTool_InMemoryDb")
+                                   .LogTo(Console.WriteLine, LogLevel.Information)
+                                   .EnableSensitiveDataLogging());
+                    }
+                    else
+                    {
+                        services.AddDbContext<DbContext, PIMToolDbContext>(options =>
+                            options.UseSqlServer(connectionString)
+                                   .LogTo(Console.WriteLine, LogLevel.Information)
+                                   .EnableSensitiveDataLogging());
+                    }
 
                     ConfigureRepositoryWrapper(services);
 

@@ -10,6 +10,7 @@ namespace PIMTool.Entities
         public int Id { get; set; }
 
         [Timestamp]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public byte[]? Timestamp { get; set; }
     }
 }

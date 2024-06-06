@@ -142,6 +142,8 @@ namespace PIMTool.Winforms
             panelContentViews.Name = "panelContentViews";
             panelContentViews.Size = new Size(1180, 670);
             panelContentViews.TabIndex = 1;
+            panelContentViews.AutoScroll = true;
+            
             // 
             // _metroSetControlBox1
             // 

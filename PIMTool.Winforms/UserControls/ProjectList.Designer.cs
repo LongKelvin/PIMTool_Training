@@ -59,6 +59,9 @@ namespace PIMTool.Winforms.UserControls
             dataGridViewProjects.BorderStyle = BorderStyle.None;
             dataGridViewProjects.CellBorderStyle = DataGridViewCellBorderStyle.SunkenHorizontal;
             dataGridViewProjects.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewProjects.ScrollBars = ScrollBars.Vertical;
+            dataGridViewProjects.ShowVerticalScroll = true;
+            
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 255, 255);
             dataGridViewCellStyle1.Font = new Font("Roboto Medium", 14F, FontStyle.Bold, GraphicsUnit.Pixel);

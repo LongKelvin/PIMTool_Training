@@ -18,6 +18,8 @@ namespace PIMTool.Winforms.UserControls
 
         private void LoadProjects()
         {
+
+            var pjs = _repositoryWrapper.Projects.GetAllAsync().ToList();
             // Load projects from the repository
             var projects = _repositoryWrapper.Projects.GetAllAsync().Select(x => new ProjectDto
             {
@@ -27,6 +29,7 @@ namespace PIMTool.Winforms.UserControls
                 ProjectNumber = x.ProjectNumber,
                 StartDate = x.StartDate,
                 Customer = x.Customer,
+                Timestamp = x.Timestamp,
             }).ToList();
 
             // Bind projects to the DataGridView

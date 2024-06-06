@@ -5,6 +5,8 @@ namespace PIMTool.DataAccess.SampleData
 {
     public static class SampleData
     {
+        private static readonly Random random = new Random();
+
         public static void InitializeData(PIMToolDbContext context)
         {
             CreateSampleData(context);
@@ -21,21 +23,19 @@ namespace PIMTool.DataAccess.SampleData
         {
             if (!context.Employees.Any())
             {
-                var listEmployees = new List<Employee>
+                var listEmployees = new List<Employee>();
+
+                for (int i = 0; i < 100; i++)
                 {
-                    new() {
-                        Visa = "JDV",
-                        FirstName = "John",
-                        LastName = "Doe",
-                        BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc)
-                    },
-                    new() {
-                        Visa = "JSV",
-                        FirstName = "Jane",
-                        LastName = "Smith",
-                        BirthDate = new DateTime(1995, 5, 10, 0, 0, 0, kind: DateTimeKind.Utc)
-                    }
-                };
+                    listEmployees.Add(new Employee
+                    {
+                        Visa = GenerateRandomString(3),
+                        FirstName = $"FirstName{i}",
+                        LastName = $"LastName{i}",
+                        BirthDate = GenerateRandomDate(new DateTime(1980, 1, 1),
+                        new DateTime(2000, 1, 1))
+                    });
+                }
 
                 context.Employees.AddRange(listEmployees);
                 context.SaveChanges();
@@ -52,20 +52,16 @@ namespace PIMTool.DataAccess.SampleData
                 }
 
                 var listEmployees = context.Employees.ToList();
+                var listGroups = new List<Group>();
 
-                var listGroups = new List<Group>
+                for (int i = 0; i < 10; i++)
                 {
-                    new() {
-                        GroupLeaderId = listEmployees[0].Id,
-                        GroupLeader=listEmployees[0],
-                        GroupName = "PS-EC"
-                    },
-                     new() {
-                        GroupLeaderId = listEmployees[1].Id,
-                        GroupLeader=listEmployees[1],
-                        GroupName= "ETAS-EC"
-                    },
-                };
+                    listGroups.Add(new Group
+                    {
+                        GroupLeaderId = listEmployees[random.Next(listEmployees.Count)].Id,
+                        GroupName = $"Group{i}"
+                    });
+                }
 
                 context.Groups.AddRange(listGroups);
                 context.SaveChanges();
@@ -87,32 +83,37 @@ namespace PIMTool.DataAccess.SampleData
                 }
 
                 var listGroups = context.Groups.ToList();
+                var listProjects = new List<Project>();
 
-                var listProjects = new List<Project>
+                for (int i = 0; i < 50; i++)
                 {
-                     new() {
-                        GroupId = listGroups[0].Id,
-                        ProjectNumber = 1001,
-                        Name = "Project A",
-                        Customer = "ABC Company",
-                        Status = ProjectStatus.NEW.ToString(),
-                        StartDate = new DateTime(2024, 1, 1, 0, 0, 0, kind: DateTimeKind.Utc),
-                        EndDate = null // Assuming project has not ended yet
-                    },
-                    new() {
-                        GroupId = listGroups[1].Id,
-                        ProjectNumber = 1002,
-                        Name = "Project B",
-                        Customer = "XYZ Corporation",
-                        Status = ProjectStatus.INP.ToString(),
-                        StartDate = new DateTime(2024, 2, 1, 0, 0, 0, kind: DateTimeKind.Utc),
-                        EndDate = new DateTime(2024, 10, 30, 0, 0, 0, kind: DateTimeKind.Utc)
-                    }
-                };
+                    listProjects.Add(new Project
+                    {
+                        GroupId = listGroups[random.Next(listGroups.Count)].Id,
+                        ProjectNumber = 1000 + i,
+                        Name = $"Project {i}",
+                        Customer = $"Customer {i}",
+                        Status = ((ProjectStatus)random.Next(0, 3)).ToString(),
+                        StartDate = GenerateRandomDate(new DateTime(2024, 1, 1), new DateTime(2024, 12, 31)),
+                        EndDate = i % 2 == 0 ? (DateTime?)null : GenerateRandomDate(new DateTime(2024, 6, 1), new DateTime(2025, 12, 31))
+                    });
+                }
 
                 context.Projects.AddRange(listProjects);
                 context.SaveChanges();
             }
+        }
+
+        private static string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private static DateTime GenerateRandomDate(DateTime start, DateTime end)
+        {
+            int range = (end - start).Days;
+            return start.AddDays(random.Next(range));
         }
     }
 }

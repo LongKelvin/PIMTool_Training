@@ -62,6 +62,7 @@ namespace PIMTool.Winforms.Controls
 
                 control.TopLevel = false;
                 control.Dock = DockStyle.Fill;
+
                 WindowsContainer.TryAdd(control.GetType().Name, control);
                 parrentControl.Controls.Add(control);
                 control.Visible = false;

@@ -62,6 +62,9 @@ namespace PIMTool.Winforms.Controls
 
                 control.TopLevel = false;
                 control.Dock = DockStyle.Fill;
+                control.AllowResize = false;
+                control.AllowDrop = false;
+                control.Moveable = false;
 
                 WindowsContainer.TryAdd(control.GetType().Name, control);
                 parrentControl.Controls.Add(control);
@@ -84,6 +87,10 @@ namespace PIMTool.Winforms.Controls
 
                 kvp.Value.TopLevel = false;
                 kvp.Value.Dock = DockStyle.Fill;
+                kvp.Value.AllowResize = false;
+                kvp.Value.AllowDrop = false;
+                kvp.Value.Moveable = false;
+
                 parrentControl.Controls.Add(kvp.Value);
                 WindowsContainer.TryAdd(kvp.Key, kvp.Value);
                 kvp.Value.Visible = false;

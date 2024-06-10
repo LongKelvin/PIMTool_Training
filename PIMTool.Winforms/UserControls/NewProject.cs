@@ -9,43 +9,19 @@ namespace PIMTool.Winforms.UserControls
     public partial class NewProject : BaseUserControl, INavigationHandler
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
-        private List<string> _listEmployeeName;
-        private List<string> _listSelectedEmployees;
-
-        // UI Component
-        private ListBox _employeeSuggestionList;
+        private List<Employee> _listEmployees;
 
         public NewProject(IRepositoryWrapper repositoryWrapper)
         {
             InitializeComponent();
             _repositoryWrapper = repositoryWrapper;
-
-            // UI Control Initilize
-            txtMember.AutoCompleteCustomSource = [];
-
-            // Create and hide the suggestion ListBox
-            _employeeSuggestionList = new ListBox
-            {
-                Visible = false
-            };
-            _employeeSuggestionList.DrawItem += SuggestionList_DrawItem; // Register DrawItem event handler
-            Controls.Add(_employeeSuggestionList);
-
-            // Event handler for text changes
-            txtMember.TextChanged += TxtMember_TextChanged;
-
-            // Event handler for handling Enter or semicolon key press
-            txtMember.KeyDown += TxtMember_KeyDown;
-
-            // Data fetching
-            _listEmployeeName = GetListOfEmployees().Select(x => x.FirstName)
-                .Where(x => !string.IsNullOrEmpty(x)).ToList();
-
-            for (int i = 0; i < 20; i++)
-            {
-                _listEmployeeName.Add($"test_{i}");
-            }
         }
+
+        /// <summary>
+        /// This is non UI functionality
+        /// </summary>
+        /// <param name="empName"></param>
+        /// <returns></returns>
 
         private List<Employee> GetListOfEmployees(string? empName = null)
         {
@@ -85,82 +61,23 @@ namespace PIMTool.Winforms.UserControls
             cmbStatus.DataSource = projectStatus;
         }
 
+        private void LoadAllMemberVisaToMultiSelectListByDefault()
+        {
+            // Init list members
+            _listEmployees = GetListOfEmployees();
+            multiSelectBoxMember.DataSource = _listEmployees.Select(x => x.Visa).ToList();
+        }
+
         private void NewProject_Load(object sender, EventArgs e)
         {
             //Init combobox data
             LoadGroupDataComboBox();
             LoadProjectStatusDefaultCombobox();
 
-            List<string> matchingMembers = _listEmployeeName;
+            // Init multiple selectbox data
+            LoadAllMemberVisaToMultiSelectListByDefault();
 
-            // Clear the existing auto-complete suggestions
-            txtMember.AutoCompleteCustomSource?.Clear();
 
-            // Add the new matching members to the auto-complete suggestions
-
-            txtMember.AutoCompleteCustomSource?.AddRange([.. matchingMembers]);
-            txtMember.AutoCompleteMode = AutoCompleteMode.Suggest;
-            txtMember.AutoCompleteSource = AutoCompleteSource.CustomSource;
-        }
-
-        private void SuggestionList_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            if (e.Index < 0)
-                return;
-
-            string suggestion = _employeeSuggestionList.Items[e.Index].ToString()!;
-
-            string text = txtMember.Text;
-            string[] parts = text.Split(';');
-            string lastWord = parts.Length > 0 ? parts[parts.Length - 1] : "";
-
-            // Highlight matching text based on lastWord
-            int startIndex = suggestion.IndexOf(lastWord, StringComparison.CurrentCultureIgnoreCase);
-            if (startIndex >= 0)
-            {
-                e.DrawBackground();
-                e.Graphics.DrawString(suggestion.Substring(0, startIndex), e.Font, Brushes.Black, e.Bounds);
-                e.Graphics.DrawString(suggestion.Substring(startIndex, lastWord.Length), e.Font, Brushes.LightBlue, e.Bounds);
-                e.Graphics.DrawString(suggestion.Substring(startIndex + lastWord.Length), e.Font, Brushes.Black, e.Bounds);
-            }
-        }
-
-        private void TxtMember_TextChanged(object sender, EventArgs e)
-        {
-            string text = txtMember.Text;
-            string[] parts = text.Split(';');
-            string lastWord = parts.Length > 0 ? parts[parts.Length - 1] : "";
-
-            // Update suggestion list asynchronously
-            _employeeSuggestionList.Items.Clear();
-            _employeeSuggestionList.Visible = false;
-
-            var suggestions = GetListOfEmployees(lastWord);
-            _employeeSuggestionList.Items.AddRange([.. suggestions]);
-            _employeeSuggestionList.Visible = suggestions.Count != 0;
-
-            // Position and show suggestion list (adjust as needed)
-            _employeeSuggestionList.Location = new Point(txtMember.Left, txtMember.Bottom);
-        }
-
-        private void SuggestionList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_employeeSuggestionList.SelectedItem != null)
-            {
-                string selectedSuggestion = _employeeSuggestionList.SelectedItem.ToString()!;
-                txtMember.Text += $";{selectedSuggestion}"; // Add semicolon after selection
-                _employeeSuggestionList.Visible = false; // Hide suggestion list
-            }
-        }
-
-        private void TxtMember_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.OemSemicolon)
-            {
-                _listSelectedEmployees = [.. txtMember.Text.Split(';')];
-                _listSelectedEmployees.RemoveAll(string.IsNullOrEmpty); // Remove empty entries
-                txtMember.Text = string.Join(";", _listSelectedEmployees); // Update text with selected members
-            }
         }
     }
 }

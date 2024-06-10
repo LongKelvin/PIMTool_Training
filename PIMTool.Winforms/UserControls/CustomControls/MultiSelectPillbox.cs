@@ -2,16 +2,20 @@
 
 namespace PIMTool.Winforms.UserControls.CustomControls
 {
-    public partial class MultiSelectPillbox : UserControl
+    public partial class MultiSelectBox : UserControl
     {
         private List<string>? items;
         private readonly HashSet<string> selectedItems = [];
 
         private bool listBoxSelectionChanging;
 
-        public MultiSelectPillbox()
+        public MultiSelectBox()
         {
             InitializeComponent();
+
+            // Wire up event handlers
+            this.GotFocus += MultiSelectPillbox_GotFocus!;
+            this.LostFocus += MultiSelectPillbox_LostFocus!;
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -134,6 +138,7 @@ namespace PIMTool.Winforms.UserControls.CustomControls
         {
             listBox.Visible = listBox.Items.Count > 0;
             listBox.BringToFront();
+            listBox.BackColor = Color.White;
         }
 
         public List<string> GetSelectedItems()
@@ -152,5 +157,80 @@ namespace PIMTool.Winforms.UserControls.CustomControls
             }));
         }
 
+        private void MultiSelectPillbox_GotFocus(object sender, EventArgs e)
+        {
+            AdjustListBoxHeight();
+            PositionListBoxAboveOtherControls();
+            ShowList();
+        }
+
+        private void MultiSelectPillbox_LostFocus(object sender, EventArgs e)
+        {
+            HideList();
+            BackColor = Color.White;
+            BorderStyle = BorderStyle.None;
+        }
+
+        private void AdjustListBoxHeight()
+        {
+            int maxHeight = Screen.PrimaryScreen!.WorkingArea.Height; // Maximum height of the screen
+            int itemCount = this.listBox.Items.Count;
+            int itemHeight = this.listBox.ItemHeight;
+
+            int totalListBoxHeight = Math.Min(itemCount * itemHeight, maxHeight); // Ensure the height doesn't exceed the screen height
+            this.listBox.Height = totalListBoxHeight;
+        }
+
+        private void PositionListBoxAboveOtherControls()
+        {
+            Point listBoxLocation = this.PointToScreen(new Point(0, -this.listBox.Height)); // Position above the MultiSelectBox
+            this.listBox.Location = listBoxLocation;
+            this.listBox.BorderStyle = BorderStyle.Fixed3D;
+        }
+
+        private void HideList()
+        {
+            this.listBox.Visible = false;
+            listBox.BackColor = Color.White;
+            listBox.BorderStyle = BorderStyle.None;
+            listBox.SendToBack();
+        }
+
+        private void ListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // Check if the item is selected
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                // Set the background color to the system's window color
+                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
+            }
+            else
+            {
+                // Set the background color to the default
+                e.DrawBackground();
+            }
+
+            // Draw the item text
+            string itemText = ((ListBox)sender).Items[e.Index].ToString()!;
+
+            // Draw the item text
+            e.Graphics.DrawString(itemText, e.Font!, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+
+            // Draw the focus rectangle if the ListBox has focus
+            e.DrawFocusRectangle();
+        }
+
+        private void MultiSelectPillbox_Load(object sender, EventArgs e)
+        {
+            // Set the ListBox's DrawMode property
+            this.listBox.DrawMode = DrawMode.OwnerDrawFixed;
+
+            // Set the border color
+            this.listBox.BackColor = SystemColors.Window;
+            this.listBox.BorderStyle = BorderStyle.FixedSingle;
+
+            // Subscribe to the DrawItem event
+            this.listBox.DrawItem += new DrawItemEventHandler(ListBox_DrawItem!);
+        }
     }
 }

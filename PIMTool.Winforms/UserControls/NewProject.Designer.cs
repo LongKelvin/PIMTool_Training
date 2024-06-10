@@ -1,5 +1,7 @@
 ﻿using MetroSet_UI.Controls;
 
+using PIMTool.Winforms.UserControls.CustomControls;
+
 namespace PIMTool.Winforms.UserControls
 {
     partial class NewProject
@@ -40,7 +42,7 @@ namespace PIMTool.Winforms.UserControls
             lblGroup = new MetroSetLabel();
             cmbGroup = new MetroSetComboBox();
             lblMember = new MetroSetLabel();
-            txtMember = new MetroSetTextBox();
+            multiSelectBoxMember = new MultiSelectBox();
             lblStatus = new MetroSetLabel();
             cmbStatus = new MetroSetComboBox();
             lblStartDate = new MetroSetLabel();
@@ -256,35 +258,17 @@ namespace PIMTool.Winforms.UserControls
             lblMember.ThemeAuthor = "Narwin";
             lblMember.ThemeName = "MetroLite";
             // 
-            // txtMember
+            // multiSelectBoxMember
             // 
-            txtMember.AutoCompleteCustomSource = null;
-            txtMember.AutoCompleteMode = AutoCompleteMode.None;
-            txtMember.AutoCompleteSource = AutoCompleteSource.None;
-            txtMember.BorderColor = Color.FromArgb(155, 155, 155);
-            txtMember.DisabledBackColor = Color.FromArgb(204, 204, 204);
-            txtMember.DisabledBorderColor = Color.FromArgb(155, 155, 155);
-            txtMember.DisabledForeColor = Color.FromArgb(136, 136, 136);
-            txtMember.Font = new Font("Microsoft Sans Serif", 10F);
-            txtMember.HoverColor = Color.FromArgb(102, 102, 102);
-            txtMember.Image = null;
-            txtMember.IsDerivedStyle = true;
-            txtMember.Lines = null;
-            txtMember.Location = new Point(220, 340);
-            txtMember.MaxLength = 32767;
-            txtMember.Multiline = false;
-            txtMember.Name = "txtMember";
-            txtMember.ReadOnly = false;
-            txtMember.Size = new Size(600, 30);
-            txtMember.Style = MetroSet_UI.Enums.Style.Light;
-            txtMember.StyleManager = null;
-            txtMember.TabIndex = 10;
-            txtMember.TextAlign = HorizontalAlignment.Left;
-            txtMember.ThemeAuthor = "Narwin";
-            txtMember.ThemeName = "MetroLite";
-            txtMember.UseSystemPasswordChar = false;
-            txtMember.WatermarkText = "";
-            txtMember.TextChanged += TxtMember_TextChanged;
+   
+            multiSelectBoxMember.Font = new Font("Microsoft Sans Serif", 10F);
+            multiSelectBoxMember.Location = new Point(220, 340);
+            multiSelectBoxMember.Name = "multiSelectBoxMember";
+            multiSelectBoxMember.Size = new Size(600, 400);
+            multiSelectBoxMember.TabIndex = 10;
+            multiSelectBoxMember.BringToFront();
+          
+           
             // 
             // lblStatus
             // 
@@ -442,7 +426,7 @@ namespace PIMTool.Winforms.UserControls
             Controls.Add(lblStartDate);
             Controls.Add(cmbStatus);
             Controls.Add(lblStatus);
-            Controls.Add(txtMember);
+            Controls.Add(multiSelectBoxMember);
             Controls.Add(lblMember);
             Controls.Add(cmbGroup);
             Controls.Add(lblGroup);
@@ -469,7 +453,7 @@ namespace PIMTool.Winforms.UserControls
         private MetroSetLabel lblGroup;
         private MetroSetComboBox cmbGroup;
         private MetroSetLabel lblMember;
-        private MetroSetTextBox txtMember;
+        private MultiSelectBox multiSelectBoxMember;
         private MetroSetLabel lblStatus;
         private MetroSetComboBox cmbStatus;
         private MetroSetLabel lblStartDate;

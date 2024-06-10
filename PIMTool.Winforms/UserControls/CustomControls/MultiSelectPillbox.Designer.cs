@@ -1,6 +1,8 @@
-﻿namespace PIMTool.Winforms.UserControls.CustomControls
+﻿using System.Configuration;
+
+namespace PIMTool.Winforms.UserControls.CustomControls
 {
-    partial class MultiSelectPillbox
+    partial class MultiSelectBox
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TextBox searchTextBox;
@@ -19,6 +21,7 @@
         {
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.listBox = new System.Windows.Forms.ListBox();
+            BackColor = Color.White;
             this.SuspendLayout();
 
             // 
@@ -27,8 +30,8 @@
             this.searchTextBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.searchTextBox.Location = new System.Drawing.Point(0, 0);
             this.searchTextBox.Name = "searchTextBox";
-           this.searchTextBox.Size = new System.Drawing.Size(150, 20);
-         
+            this.searchTextBox.Size = new System.Drawing.Size(150, 20);
+
             this.searchTextBox.TabIndex = 0;
             this.searchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
             this.searchTextBox.GotFocus += new System.EventHandler(this.SearchTextBox_GotFocus);
@@ -49,19 +52,22 @@
             this.listBox.LostFocus += new System.EventHandler(this.ListBox_LostFocus);
             this.listBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListBox_MouseDown);
             this.listBox.MouseClick += ListBox_MouseClick;
-
+            this.listBox.BorderStyle = BorderStyle.None;
             this.listBox.SelectionMode = SelectionMode.MultiSimple;
+            this.listBox.BringToFront();
 
 
             // 
-            // MultiSelectPillbox
+            // MultiSelectBox
             // 
+           
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.searchTextBox);
-            this.Name = "MultiSelectPillbox";
+            this.Name = "MultiSelectBox";
             this.Size = new System.Drawing.Size(150, 150);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
     }
 }

@@ -30,7 +30,7 @@ namespace PIMTool.Winforms.UserControls
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private new void InitializeComponent()
         {
             lblNewProject = new MetroSetLabel();
             lblProjectNumber = new MetroSetLabel();
@@ -111,6 +111,43 @@ namespace PIMTool.Winforms.UserControls
             txtProjectNumber.ThemeName = "MetroLite";
             txtProjectNumber.UseSystemPasswordChar = false;
             txtProjectNumber.WatermarkText = "";
+
+
+            // Add the button control
+            btnAutoGenerate = new MetroSetButton();
+            // 
+            // btnAutoGenerate
+            // 
+            btnAutoGenerate.DisabledBackColor = Color.FromArgb(120, 65, 177, 225);
+            btnAutoGenerate.DisabledBorderColor = Color.FromArgb(120, 65, 177, 225);
+            btnAutoGenerate.DisabledForeColor = Color.Gray;
+            btnAutoGenerate.Font = new Font("Microsoft Sans Serif", 10F);
+            btnAutoGenerate.HoverBorderColor = Color.FromArgb(95, 207, 255);
+            btnAutoGenerate.HoverColor = Color.FromArgb(95, 207, 255);
+            btnAutoGenerate.HoverTextColor = Color.White;
+            btnAutoGenerate.IsDerivedStyle = true;
+            btnAutoGenerate.Location = new Point(530, 100);
+            btnAutoGenerate.Name = "btnAutoGenerate";
+            btnAutoGenerate.NormalBorderColor = Color.FromArgb(65, 177, 225);
+            btnAutoGenerate.NormalColor = Color.FromArgb(65, 177, 225);
+            btnAutoGenerate.NormalTextColor = Color.White;
+            btnAutoGenerate.PressBorderColor = Color.FromArgb(35, 147, 195);
+            btnAutoGenerate.PressColor = Color.FromArgb(35, 147, 195);
+            btnAutoGenerate.PressTextColor = Color.White;
+            btnAutoGenerate.Size = new Size(30, 30);
+            btnAutoGenerate.Style = MetroSet_UI.Enums.Style.Light;
+            btnAutoGenerate.StyleManager = null;
+            btnAutoGenerate.TabIndex = 3;
+            btnAutoGenerate.Text = "A";
+            // Replace the line that sets the text of btnAutoGenerate with a line that sets the image of btnAutoGenerate to a system icon
+            btnAutoGenerate.BackgroundImage = SystemIcons.Asterisk.ToBitmap();
+            btnAutoGenerate.ThemeAuthor = "Narwin";
+            btnAutoGenerate.ThemeName = "MetroLite";
+            btnAutoGenerate.Click += btnAutoGenerate_Click;
+
+            // Add the button control to the form
+            Controls.Add(btnAutoGenerate);
+           
             // 
             // lblProjectName
             // 
@@ -199,6 +236,9 @@ namespace PIMTool.Winforms.UserControls
             txtCustomer.ThemeName = "MetroLite";
             txtCustomer.UseSystemPasswordChar = false;
             txtCustomer.WatermarkText = "";
+            txtCustomer.TextChanged += txtCustomerName_TextChanged;
+            txtCustomer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            txtCustomer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             // 
             // lblGroup
             // 
@@ -462,6 +502,7 @@ namespace PIMTool.Winforms.UserControls
         private DateTimePicker dtEndDate;
         private MetroSetButton btnCancel;
         private MetroSetButton btnCreateProject;
+        private MetroSetButton btnAutoGenerate;
     }
 
 

@@ -168,7 +168,7 @@ namespace PIMTool.Winforms.UserControls.CustomControls
         {
             HideList();
             BackColor = Color.White;
-            BorderStyle = BorderStyle.None;
+            //BorderStyle = BorderStyle.None;
         }
 
         private void AdjustListBoxHeight()

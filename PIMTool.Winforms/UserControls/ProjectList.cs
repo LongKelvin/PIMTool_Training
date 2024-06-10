@@ -1,4 +1,6 @@
-﻿using PIMTool.Core.Wrapper.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+
+using PIMTool.Core.Wrapper.Interfaces;
 using PIMTool.Entities.Enums;
 using PIMTool.Shared.DTOs;
 using PIMTool.Winforms.Events;
@@ -9,17 +11,17 @@ namespace PIMTool.Winforms.UserControls
     public partial class ProjectList : BaseUserControl, INavigationHandler
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
+        private readonly ILogger<ProjectList> _logger;
 
-        public ProjectList(IRepositoryWrapper repositoryWrapper)
+        public ProjectList(IRepositoryWrapper repositoryWrapper, ILogger<ProjectList> logger)
         {
             InitializeComponent();
             _repositoryWrapper = repositoryWrapper;
+            _logger = logger;
         }
 
         private void LoadProjects()
         {
-
-            var pjs = _repositoryWrapper.Projects.GetAllAsync().ToList();
             // Load projects from the repository
             var projects = _repositoryWrapper.Projects.GetAllAsync().Select(x => new ProjectDto
             {
@@ -28,12 +30,17 @@ namespace PIMTool.Winforms.UserControls
                 Status = x.Status,
                 ProjectNumber = x.ProjectNumber,
                 StartDate = x.StartDate,
+                EndDate = x.EndDate,
                 Customer = x.Customer,
-                Timestamp = x.Timestamp,
+                IsSelected = false
             }).ToList();
 
             // Bind projects to the DataGridView
             dataGridViewProjects.DataSource = projects;
+            dataGridViewProjects.Columns["TimeStamp"].Visible = false;
+            dataGridViewProjects.Columns["IsSelected"].DisplayIndex = 0;
+            dataGridViewProjects.Columns["IsSelected"].Selected = true;
+            dataGridViewProjects.Columns["Id"].DisplayIndex = 1;
         }
 
         public void NavigateTo(string userControlName, object[]? data = null)
@@ -84,6 +91,13 @@ namespace PIMTool.Winforms.UserControls
         {
             ProjectStatus[] projectStatus = (ProjectStatus[])Enum.GetValues(typeof(ProjectStatus));
             cmbProjectStatus.DataSource = projectStatus;
+        }
+
+        private void dataGridViewProjects_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Log the error or display a custom error message
+            _logger.LogError(e.Exception, "Data error occurred: " + e.Exception.Message);
+            e.ThrowException = false;
         }
     }
 }

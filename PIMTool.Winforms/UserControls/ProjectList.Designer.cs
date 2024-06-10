@@ -59,8 +59,8 @@ namespace PIMTool.Winforms.UserControls
             dataGridViewProjects.BorderStyle = BorderStyle.None;
             dataGridViewProjects.CellBorderStyle = DataGridViewCellBorderStyle.SunkenHorizontal;
             dataGridViewProjects.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewProjects.ScrollBars = ScrollBars.Vertical;
-            dataGridViewProjects.ShowVerticalScroll = true;
+            //dataGridViewProjects.ScrollBars = ScrollBars.Vertical;
+            //dataGridViewProjects.ShowVerticalScroll = true;
             
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 255, 255);
@@ -72,7 +72,7 @@ namespace PIMTool.Winforms.UserControls
             dataGridViewProjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewProjects.ColumnHeadersHeight = 56;
             dataGridViewProjects.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewProjects.Columns.AddRange(new DataGridViewColumn[] { SelectColumn, DeleteColumn });
+            dataGridViewProjects.Columns.AddRange(new DataGridViewColumn[] { DeleteColumn });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -106,12 +106,14 @@ namespace PIMTool.Winforms.UserControls
             dataGridViewProjects.ShowVerticalScroll = false;
             dataGridViewProjects.Size = new Size(1101, 400);
             dataGridViewProjects.TabIndex = 0;
+            dataGridViewProjects.DataError += dataGridViewProjects_DataError;
             // 
             // SelectColumn
             // 
-            SelectColumn.HeaderText = "";
-            SelectColumn.Name = "SelectColumn";
-            SelectColumn.ReadOnly = false;
+            //SelectColumn.HeaderText = "Select";
+            //SelectColumn.Name = "SelectColumn";
+            //SelectColumn.ReadOnly = false;
+            //SelectColumn.DisplayIndex = 0;
 
             // 
             // DeleteColumn

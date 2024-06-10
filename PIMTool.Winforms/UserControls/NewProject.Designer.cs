@@ -284,7 +284,7 @@ namespace PIMTool.Winforms.UserControls
             txtMember.ThemeName = "MetroLite";
             txtMember.UseSystemPasswordChar = false;
             txtMember.WatermarkText = "";
-            txtMember.TextChanged += txtMember_TextChanged;
+            txtMember.TextChanged += TxtMember_TextChanged;
             // 
             // lblStatus
             // 

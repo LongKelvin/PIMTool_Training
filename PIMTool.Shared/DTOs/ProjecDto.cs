@@ -18,6 +18,8 @@ namespace PIMTool.Shared.DTOs
 
         public DateTime? EndDate { get; set; }
 
+        public bool IsSelected { get; set; }
+
         public ProjectDto()
         {
             Name = string.Empty;

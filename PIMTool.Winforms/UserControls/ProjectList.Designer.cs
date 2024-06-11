@@ -51,6 +51,9 @@ namespace PIMTool.Winforms.UserControls
             // 
             // dataGridViewProjects
             // 
+            dataGridViewProjects.ShowVerticalScroll = true;
+            dataGridViewProjects.ColorStripColor = Primary.Blue100;
+            dataGridViewProjects.ShowColorStripping = true;
             dataGridViewProjects.AllowUserToAddRows = false;
             dataGridViewProjects.AllowUserToDeleteRows = false;
             dataGridViewProjects.AllowUserToResizeRows = false;
@@ -72,7 +75,7 @@ namespace PIMTool.Winforms.UserControls
             dataGridViewProjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewProjects.ColumnHeadersHeight = 56;
             dataGridViewProjects.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewProjects.Columns.AddRange(new DataGridViewColumn[] { DeleteColumn });
+            dataGridViewProjects.Columns.AddRange(new DataGridViewColumn[] { DeleteColumn, SelectColumn });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -106,14 +109,20 @@ namespace PIMTool.Winforms.UserControls
             dataGridViewProjects.ShowVerticalScroll = false;
             dataGridViewProjects.Size = new Size(1101, 400);
             dataGridViewProjects.TabIndex = 0;
-            dataGridViewProjects.DataError += dataGridViewProjects_DataError;
+            dataGridViewProjects.DataError += DataGridViewProjects_DataError;
+            dataGridViewProjects.CellContentClick += DataGridViewProjects_DeleteButton_CellContentClick;
+            dataGridViewProjects.CellContentClick += DataGridViewProjects_SelectColumn_CellContentClick;
+            dataGridViewProjects.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             // 
             // SelectColumn
             // 
-            //SelectColumn.HeaderText = "Select";
-            //SelectColumn.Name = "SelectColumn";
-            //SelectColumn.ReadOnly = false;
-            //SelectColumn.DisplayIndex = 0;
+           
+
+            SelectColumn.HeaderText = "Select";
+            SelectColumn.Name = "SelectColumn";
+            SelectColumn.ReadOnly = false;
+            SelectColumn.DisplayIndex = 0;
+            SelectColumn.DataPropertyName = "IsSelected";
 
             // 
             // DeleteColumn
@@ -123,7 +132,21 @@ namespace PIMTool.Winforms.UserControls
             DeleteColumn.ReadOnly = true;
             DeleteColumn.Text = "Delete";
             DeleteColumn.UseColumnTextForButtonValue = true;
+
+            // format the columns button to be a MetroSetButton
+            DeleteColumn.FlatStyle = FlatStyle.Flat;
+            DeleteColumn.DefaultCellStyle.NullValue = "Delete";
+            DeleteColumn.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            DeleteColumn.DefaultCellStyle.ForeColor = Color.SkyBlue;
+            // set button color when mouse hover on it
+            DeleteColumn.DefaultCellStyle.BackColor = Color.FromArgb(35, 120,195);
+            DeleteColumn.DefaultCellStyle.SelectionBackColor = Color.FromArgb(35, 120, 195);
+            DeleteColumn.DefaultCellStyle.SelectionForeColor = Color.White;
+            DeleteColumn.DefaultCellStyle.Padding = new Padding(0, 0, 0, 0);
+            DeleteColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DeleteColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             
+
             // 
             // txtSearchBox
             // 
@@ -250,6 +273,75 @@ namespace PIMTool.Winforms.UserControls
             lblProjectList.Text = "Project List";
             lblProjectList.ThemeAuthor = "Narwin";
             lblProjectList.ThemeName = "MetroLite";
+
+
+            // 
+            // lblSelectedProjects
+            // 
+            lblSelectedProjects = new MetroSetLabel();
+            lblSelectedProjects.AutoSize = true;
+            lblSelectedProjects.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblSelectedProjects.IsDerivedStyle = true;
+            lblSelectedProjects.Location = new Point(15, 600);
+            lblSelectedProjects.Name = "lblSelectedProjects";
+            lblSelectedProjects.Size = new Size(0, 0);
+            lblSelectedProjects.Style = MetroSet_UI.Enums.Style.Light;
+            lblSelectedProjects.StyleManager = null;
+            lblSelectedProjects.TabIndex = 5;
+            lblSelectedProjects.Text = "Selected: ";
+            lblSelectedProjects.ThemeAuthor = "Narwin";
+            lblSelectedProjects.ThemeName = "MetroLite";
+            Controls.Add(lblSelectedProjects);
+
+            // Create a label to display the number of selected projects
+            lblSelectedProjectCount = new MetroSetLabel();
+            lblSelectedProjectCount.AutoSize = true;
+            lblSelectedProjectCount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblSelectedProjectCount.IsDerivedStyle = true;
+            lblSelectedProjectCount.Location = new Point(lblSelectedProjects.Right, lblSelectedProjects.Top);
+            lblSelectedProjectCount.Name = "lblSelectedProjectCount";
+            lblSelectedProjectCount.Size = new Size(0, 0);
+            lblSelectedProjectCount.Style = MetroSet_UI.Enums.Style.Light;
+            lblSelectedProjectCount.StyleManager = null;
+            lblSelectedProjectCount.TabIndex = 7;
+            lblSelectedProjectCount.Text = "0";
+            lblSelectedProjectCount.ThemeAuthor = "Narwin";
+            lblSelectedProjectCount.ThemeName = "MetroLite";
+            Controls.Add(lblSelectedProjectCount);
+
+            // 
+            // btnDeleteSelected
+            // 
+            btnDeleteSelected = new MetroSetButton();
+            btnDeleteSelected.DisabledBackColor = Color.FromArgb(120, 65, 177, 225);
+            btnDeleteSelected.DisabledBorderColor = Color.FromArgb(120, 65, 177, 225);
+            btnDeleteSelected.DisabledForeColor = Color.Gray;
+            btnDeleteSelected.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDeleteSelected.ForeColor = Color.Transparent;
+            btnDeleteSelected.HoverBorderColor = Color.FromArgb(95, 207, 255);
+            btnDeleteSelected.HoverColor = Color.FromArgb(95, 207, 255);
+            btnDeleteSelected.HoverTextColor = Color.Red;
+            btnDeleteSelected.IsDerivedStyle = true;
+            btnDeleteSelected.Location = new Point(1016, 600);
+            btnDeleteSelected.Name = "btnDeleteSelected";
+            btnDeleteSelected.NormalBorderColor = Color.FromArgb(65, 177, 225);
+            btnDeleteSelected.NormalColor = Color.FromArgb(65, 177, 225);
+            btnDeleteSelected.NormalTextColor = Color.White;
+            btnDeleteSelected.PressBorderColor = Color.FromArgb(35, 147, 195);
+            btnDeleteSelected.PressColor = Color.FromArgb(35, 147, 195);
+            btnDeleteSelected.PressTextColor = Color.White;
+            btnDeleteSelected.Size = new Size(150, 35);
+            btnDeleteSelected.Style = MetroSet_UI.Enums.Style.Light;
+            btnDeleteSelected.BackgroundImage = SystemIcons.Asterisk.ToBitmap();
+            btnDeleteSelected.StyleManager = null;
+            btnDeleteSelected.TabIndex = 6;
+            btnDeleteSelected.Text = "Delete Projects";
+            btnDeleteSelected.ThemeAuthor = "Narwin";
+            btnDeleteSelected.ThemeName = "MetroLite";
+            btnDeleteSelected.Click += DeleteSelectedProjects_Click;
+            Controls.Add(btnDeleteSelected);
+
+
             // 
             // ProjectList
             // 
@@ -272,13 +364,16 @@ namespace PIMTool.Winforms.UserControls
         #endregion
 
         private MaterialDataTable dataGridViewProjects;
-        private System.Windows.Forms.DataGridViewButtonColumn DeleteColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectColumn;
+        private DataGridViewButtonColumn DeleteColumn;
+        private DataGridViewCheckBoxColumn SelectColumn;
 
         private MetroSetTextBox txtSearchBox;
         private MetroSetComboBox cmbProjectStatus;
         private MetroSetButton btnSearch;
         private MetroSetButton btnReset;
         private MetroSetLabel lblProjectList;
+        private MetroSetLabel lblSelectedProjects;
+        private MetroSetButton btnDeleteSelected;
+        private MetroSetLabel lblSelectedProjectCount;
     }
 }

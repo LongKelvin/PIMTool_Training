@@ -41,6 +41,8 @@ namespace PIMTool.Winforms
             var newProjectWindow = Program.ServiceProvider.GetRequiredService<NewProject>();
             var projectListWindow = Program.ServiceProvider.GetRequiredService<ProjectList>();
 
+            newProjectWindow.ProjectCreated += projectListWindow.LoadProjects;
+
             _windowsContainerManager = new WindowsContainerManager
             {
                 ParrentControl = panelContentViews
@@ -65,7 +67,6 @@ namespace PIMTool.Winforms
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

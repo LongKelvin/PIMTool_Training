@@ -20,7 +20,7 @@ namespace PIMTool.Winforms.UserControls
             _logger = logger;
         }
 
-        private void LoadProjects()
+        public void LoadProjects()
         {
             // Load projects from the repository
             var projects = _repositoryWrapper.Projects.GetAllAsync().Select(x => new ProjectDto

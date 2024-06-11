@@ -14,6 +14,8 @@ namespace PIMTool.Winforms.UserControls
         private List<Employee> _listEmployees;
         private List<string> _listCustomerName;
 
+        public event Action ProjectCreated;
+
         public NewProject(IRepositoryWrapper repositoryWrapper)
         {
             InitializeComponent();
@@ -49,18 +51,18 @@ namespace PIMTool.Winforms.UserControls
         {
             // Show confirm messagebox before creating project
             // if OK then create new project
-            var confirmResult = MetroSetMessageBox.Show(this,"Are you sure to create this project?",
+            var confirmResult = MetroSetMessageBox.Show(this, "Are you sure to create this project?",
                 "Confirm Create Project",
-                MessageBoxButtons.YesNo);
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information);
+
             if (confirmResult == DialogResult.No)
             {
                 return;
             }
 
-            // Create new project
-             _repositoryWrapper.Projects.AddAsync(new Project
-            {   
-                 
+            var project = new Project
+            {
                 ProjectNumber = int.Parse(txtProjectNumber.Text),
                 Name = txtProjectName.Text,
                 Customer = txtCustomer.Text,
@@ -68,14 +70,27 @@ namespace PIMTool.Winforms.UserControls
                 Status = cmbStatus.SelectedItem!.ToString()!,
                 StartDate = dtStartDate.Value,
                 EndDate = dtEndDate.Value,
-                
-                Employees = multiSelectBoxMember.GetSelectedItems().Select(x => new Employee
-                {
-                    Id = _listEmployees.First(y => y.Visa == x).Id
-                }).ToList()
-            });
+            };
 
+            var listEmployees = new List<Employee>();
+            foreach (var selectItems in multiSelectBoxMember.GetSelectedItems())
+            {
+                var employeeInfo = _repositoryWrapper.Employees.GetByConditionAsync(
+                    x => x.Visa.Equals(selectItems)).FirstOrDefault();
+
+                if (employeeInfo != null)
+                {
+                    listEmployees.Add(employeeInfo);
+                }
+            }
+
+            project.Employees = listEmployees;
+
+            _repositoryWrapper.Projects.AddAsync(project);
             _repositoryWrapper.SaveChanges();
+
+            ProjectCreated?.Invoke();
+
             NavigateTo(nameof(ProjectList));
         }
 
@@ -111,8 +126,6 @@ namespace PIMTool.Winforms.UserControls
 
             // Init customer name
             LoadListCustomerName();
-
-
         }
 
         private void LoadListCustomerName()
@@ -125,14 +138,12 @@ namespace PIMTool.Winforms.UserControls
         private void btnAutoGenerate_Click(object sender, EventArgs e)
         {
             // auto generate a integer number for project number
-            Random random = new Random();
+            Random random = new();
             txtProjectNumber.Text = random.Next(1000, 9999).ToString();
-
         }
 
-
         /// <summary>
-        ///  This is UI functionality to search customer name in textbox and show suggestion list in textbox autocomplete source  
+        ///  This is UI functionality to search customer name in textbox and show suggestion list in textbox autocomplete source
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -175,7 +186,5 @@ namespace PIMTool.Winforms.UserControls
             //    txtCustomer.AutoCompleteSource = AutoCompleteSource.CustomSource;
             //}
         }
-
-
     }
 }

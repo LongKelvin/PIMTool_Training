@@ -29,6 +29,18 @@ namespace PIMTool.Winforms.UserControls.CustomControls
             }
         }
 
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public new string? Text
+        {
+            get => searchTextBox.Text;
+            set
+            {
+                searchTextBox.Text = value;
+
+            }
+        }
+
         private void UpdateItems()
         {
             listBox.Items.Clear();

@@ -89,9 +89,24 @@ namespace PIMTool.Winforms.UserControls
             _repositoryWrapper.Projects.AddAsync(project);
             _repositoryWrapper.SaveChanges();
 
+            ClearExistingData();
+
             ProjectCreated?.Invoke();
 
             NavigateTo(nameof(ProjectList));
+        }
+
+        private void ClearExistingData()
+        {
+            txtProjectName.Text = string.Empty;
+            txtCustomer.Text = string.Empty;
+            txtProjectNumber.Text = string.Empty;
+            multiSelectBoxMember.Text = string.Empty;
+            cmbGroup.SelectedIndex = 0;
+            cmbStatus.SelectedIndex = 0;
+            dtEndDate.Value = DateTime.Now;
+            dtEndDate.Value = DateTime.Now;
+
         }
 
         private void LoadGroupDataComboBox()
@@ -186,5 +201,16 @@ namespace PIMTool.Winforms.UserControls
             //    txtCustomer.AutoCompleteSource = AutoCompleteSource.CustomSource;
             //}
         }
+
+        private void txtProjectNumber_KeyPressed(object sender, KeyPressEventArgs e)
+        {
+            // Check if the key pressed is a digit (0-9), backspace, or decimal point (if allowed)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'
+                || txtProjectNumber.Text.Contains('.')))
+            {
+                e.Handled = true; // Prevent the character from being entered
+            }
+        }
+
     }
 }

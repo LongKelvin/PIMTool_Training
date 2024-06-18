@@ -111,6 +111,7 @@ namespace PIMTool.Winforms.UserControls
             txtProjectNumber.ThemeName = "MetroLite";
             txtProjectNumber.UseSystemPasswordChar = false;
             txtProjectNumber.WatermarkText = "";
+            txtProjectNumber.KeyPress +=  txtProjectNumber_KeyPressed;
 
 
             // Add the button control

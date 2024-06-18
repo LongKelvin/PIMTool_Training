@@ -102,8 +102,9 @@ namespace PIMTool.Winforms.UserControls
 
             // Build search criteria based on keyword and status, if status is empty then search by keyword only
             var projects = _repositoryWrapper.Projects.GetByConditionAsync(x =>
-                (string.IsNullOrEmpty(keyword) || x.Name.ToLower().Contains(keyword.ToLower())) &&
-                (string.IsNullOrEmpty(status) || x.Status.ToLower().Contains(status.ToLower()))).Select(x => new ProjectDto
+                (string.IsNullOrEmpty(keyword) || x.Name.ToLower().Contains(keyword.ToLower()) || x.ProjectNumber.ToString().Contains(keyword.ToLower()) || x.Customer.ToLower().Contains(keyword.ToLower())) &&
+                (string.IsNullOrEmpty(status) || x.Status.ToLower().Contains(status.ToLower())))
+                .Select(x => new ProjectDto
                 {
                     Id = x.Id,
                     Name = x.Name,

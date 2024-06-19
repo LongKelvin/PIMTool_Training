@@ -1,4 +1,6 @@
-﻿using MetroSet_UI.Forms;
+﻿using System.Text;
+
+using MetroSet_UI.Forms;
 
 using Microsoft.Extensions.Logging;
 
@@ -27,19 +29,24 @@ namespace PIMTool.Winforms.UserControls
         public void LoadProjects()
         {
             // Load projects from the repository
-            var projects = _repositoryWrapper.Projects.GetAllAsync().Select(x => new ProjectDto
+            var projects = _repositoryWrapper.Projects.GetAllAsync();
+
+            // Map projects to DTOs with eager loading for GroupName
+            var projectDtos = projects.Select(x => new ProjectDto
             {
                 Id = x.Id,
+                GroupId = x.GroupId,
                 Name = x.Name,
                 Status = x.Status,
                 ProjectNumber = x.ProjectNumber,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
                 Customer = x.Customer,
-                IsSelected = false
+                IsSelected = false,
+                GroupName = x.Group.GroupName // Eager loading
             }).ToList();
 
-            BindProjectsToDataGridView(projects);
+            BindProjectsToDataGridView(projectDtos);
         }
 
         private void BindProjectsToDataGridView(List<ProjectDto> projects)
@@ -49,6 +56,8 @@ namespace PIMTool.Winforms.UserControls
 
             dataGridViewProjects.Columns["TimeStamp"].Visible = false;
             dataGridViewProjects.Columns["Id"].DisplayIndex = 1;
+            dataGridViewProjects.Columns["Id"].Visible = false;
+            dataGridViewProjects.Columns["GroupId"].Visible = false;
             dataGridViewProjects.Columns["ProjectNumber"].DisplayIndex = 2;
             dataGridViewProjects.Columns["Name"].DisplayIndex = 3;
             dataGridViewProjects.Columns["Customer"].DisplayIndex = 4;
@@ -62,13 +71,13 @@ namespace PIMTool.Winforms.UserControls
         {
             if (e.ColumnIndex == dataGridViewProjects.Columns["DeleteColumn"].Index)
             {
-                var result = MetroSetMessageBox.Show(this, "Are you sure you want to delete this project?",
+                var project = (ProjectDto)dataGridViewProjects.Rows[e.RowIndex].DataBoundItem;
+                var result = MetroSetMessageBox.Show(this, $"Are you sure you want to delete this project?\n\nProject number: {project.ProjectNumber}\nProject name: {project.Name}",
                     "Delete Project", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                 if (result == DialogResult.No)
                     return;
 
-                var project = (ProjectDto)dataGridViewProjects.Rows[e.RowIndex].DataBoundItem;
                 _repositoryWrapper.Projects.Delete(project.Id);
                 _repositoryWrapper.SaveChanges();
                 LoadProjects();
@@ -189,13 +198,29 @@ namespace PIMTool.Winforms.UserControls
 
         private void DeleteSelectedProjects_Click(object sender, EventArgs e)
         {
-            var result = MetroSetMessageBox.Show(this, "Are you sure you want to delete selected projects?",
+            var selectedProjects = GetSelectedProjects();
+
+            if (selectedProjects.Count == 0)
+            {
+                MetroSetMessageBox.Show(this, $"None project are selected! Please select projects to be delete first",
+               "Delete Selected Projects", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var projectName = selectedProjects.Select(x => x.Name).ToList();
+
+            StringBuilder listProjectName = new StringBuilder();
+            foreach (var prj in projectName)
+            {
+                listProjectName.Append($"[{prj}] ");
+            }
+
+            var result = MetroSetMessageBox.Show(this, $"Are you sure you want to delete selected projects?\n\nTotal selected: {selectedProjects.Count}\nProject list: {listProjectName}",
                 "Delete Selected Projects", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
             if (result == DialogResult.No)
                 return;
 
-            var selectedProjects = GetSelectedProjects();
             _repositoryWrapper.Projects.Delete(selectedProjects.Select(x => x.Id).ToArray());
             _repositoryWrapper.SaveChanges();
             LoadProjects();

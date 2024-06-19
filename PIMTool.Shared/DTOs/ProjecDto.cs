@@ -20,6 +20,8 @@ namespace PIMTool.Shared.DTOs
 
         public bool IsSelected { get; set; }
 
+        public string GroupName { get; set; }
+
         public ProjectDto()
         {
             Name = string.Empty;
